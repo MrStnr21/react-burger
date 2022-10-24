@@ -1,0 +1,48 @@
+.header {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+}
+
+.container {
+  margin: 24px auto;
+  padding: 0;
+  max-width: 1280px;
+  min-width: 320px;
+  display: flex;
+  align-items: center;
+}
+
+.navigation {
+  margin: 0;
+  padding-right: 112px;
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  column-gap: 8px;
+  position: relative;
+}
+
+.link {
+  margin: 0;
+  padding: 16px 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  border-radius: 40px;
+  cursor: pointer;
+}
+
+.link:hover {
+  box-shadow: 0 0 10px hsl(0deg 0% 100% / 50%);
+}
+
+.login {
+  margin: 0;
+  padding-left: 288px;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import stylesAppHeader from "./app-header.module.css";
 import {
   Logo,
   BurgerIcon,
@@ -8,28 +9,40 @@ import {
   Box,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export default class AppHeader extends React.Component {
-  render() {
-    return (
-      <header className="header">
-        <div className="menu">
-          <ul>
+export default function AppHeader() {
+  return (
+    <header className={`${stylesAppHeader.header}`}>
+      <div className={`${stylesAppHeader.container}`}>
+        <nav className={`${stylesAppHeader.navigation}`}>
+          <ul className={`${stylesAppHeader.menu}`}>
             <li>
-              <BurgerIcon type="primary" />
-              <p>Конструктор</p>
+              <a className={`${stylesAppHeader.link}`}>
+                <BurgerIcon type="primary" />
+                <p className={`text text_type_main-default`}>Конструктор</p>
+              </a>
             </li>
             <li>
-              <ListIcon type="primary" />
-              <p>Лента заказов</p>
+              <a className={`${stylesAppHeader.link}`}>
+                <ListIcon type="secondary" />
+                <p
+                  className={`text text_type_main-default text_color_inactive`}
+                >
+                  Лента заказов
+                </p>
+              </a>
             </li>
           </ul>
-        </div>
+        </nav>
         <Logo />
-        <div className="login">
-          <ProfileIcon type="primary" />
-          <p>Личный кабинет</p>
+        <div className={`${stylesAppHeader.login}`}>
+          <a className={`${stylesAppHeader.link}`}>
+            <ProfileIcon type="secondary" />
+            <p className={`text text_type_main-default text_color_inactive`}>
+              Личный кабинет
+            </p>
+          </a>
         </div>
-      </header>
-    );
-  }
+      </div>
+    </header>
+  );
 }

@@ -1,0 +1,25 @@
+.section {
+  margin: 0 auto;
+  padding: 0;
+  width: 600px;
+  height: 912px;
+}
+
+.title {
+  margin: 0;
+  padding-bottom: 20px;
+}
+
+.tab {
+  padding-bottom: 40px;
+}
+
+.container {
+  width: 600px;
+  border: 1px solid red;
+}
+
+.ingredients {
+  width: 272px;
+  border: 1px solid green;
+}
