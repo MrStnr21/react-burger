@@ -38,7 +38,7 @@ export default function BurgerIngredients({ data }) {
                   >
                     {item.name}
                   </p>
-                  <Counter count={1} size="default" />
+                  <Counter count={0} size="default" />
                 </li>
               ))}
           </ul>
@@ -66,7 +66,7 @@ export default function BurgerIngredients({ data }) {
                   >
                     {item.name}
                   </p>
-                  <Counter count={1} size="default" />
+                  <Counter count={0} size="default" />
                 </li>
               ))}
           </ul>
@@ -94,7 +94,7 @@ export default function BurgerIngredients({ data }) {
                   >
                     {item.name}
                   </p>
-                  <Counter count={1} size="default" />
+                  <Counter count={0} size="default" />
                 </li>
               ))}
           </ul>
