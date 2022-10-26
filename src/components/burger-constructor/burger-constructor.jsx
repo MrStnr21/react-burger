@@ -30,16 +30,22 @@ export default function BurgerConstructor({ data }) {
           <ul
             className={`${stylesConsctructor.list} ${stylesConsctructor.topping}`}
           >
-            {data.map((item) => (
-              <li className={`${stylesConsctructor.type}`} key={item._id}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image_mobile}
-                />
-              </li>
-            ))}
+            {data
+              .filter((item) => {
+                if (item.type !== "bun") {
+                  return item;
+                }
+              })
+              .map((item) => (
+                <li className={`${stylesConsctructor.type}`} key={item._id}>
+                  <DragIcon type="primary" />
+                  <ConstructorElement
+                    text={item.name}
+                    price={item.price}
+                    thumbnail={item.image_mobile}
+                  />
+                </li>
+              ))}
           </ul>
           <li
             className={`${stylesConsctructor.type} ${stylesConsctructor.bun}`}
@@ -71,10 +77,4 @@ export default function BurgerConstructor({ data }) {
 
 BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(BurgerPropTypes).isRequired,
-};
-
-ConstructorElement.propTypes = {
-  text: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string.isRequired,
 };

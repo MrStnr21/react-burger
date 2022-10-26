@@ -1,3 +1,4 @@
 .tab {
-    padding-bottom: 40px;
-  }
+  display: flex;
+  padding-bottom: 40px;
+}

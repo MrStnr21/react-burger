@@ -6,7 +6,7 @@ export default function TabBurgerIngredients() {
   const [current, setCurrent] = React.useState("one");
 
   return (
-    <div className={`${stylesTab.tab}`} style={{ display: "flex" }}>
+    <div className={`${stylesTab.tab}`}>
       <Tab value="one" active={current === "one"} onClick={setCurrent}>
         Булки
       </Tab>
