@@ -5,8 +5,6 @@ import {
   BurgerIcon,
   ListIcon,
   ProfileIcon,
-  Typography,
-  Box,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function AppHeader() {

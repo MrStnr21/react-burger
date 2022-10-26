@@ -3,9 +3,10 @@ import stylesIngredients from "./burger-ingredients.module.css";
 import {
   Counter,
   CurrencyIcon,
-  Box,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import TabBurgerIngredients from "../burger-ingredients-tab/burger-ingredients-tab";
+import PropTypes from "prop-types";
+import { BurgerPropTypes } from "../utils/PropTypes";
 
 export default function BurgerIngredients({ data }) {
   return (
@@ -16,7 +17,7 @@ export default function BurgerIngredients({ data }) {
       <TabBurgerIngredients />
       <div className={`${stylesIngredients.container}`}>
         <div>
-          <h2 className={`text text_type_main-medium`}>булки</h2>
+          <h2 className={`text text_type_main-medium`}>Булки</h2>
           <ul className={`${stylesIngredients.ingredients}`}>
             {data
               .filter((item) => {
@@ -44,7 +45,7 @@ export default function BurgerIngredients({ data }) {
           </ul>
         </div>
         <div>
-          <h2 className={`text text_type_main-medium`}>соусы</h2>
+          <h2 className={`text text_type_main-medium`}>Соусы</h2>
           <ul className={`${stylesIngredients.ingredients}`}>
             {data
               .filter((item) => {
@@ -72,7 +73,7 @@ export default function BurgerIngredients({ data }) {
           </ul>
         </div>
         <div>
-          <h2 className={`text text_type_main-medium`}>начинки</h2>
+          <h2 className={`text text_type_main-medium`}>Начинки</h2>
           <ul className={`${stylesIngredients.ingredients}`}>
             {data
               .filter((item) => {
@@ -103,3 +104,7 @@ export default function BurgerIngredients({ data }) {
     </section>
   );
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(BurgerPropTypes).isRequired,
+};

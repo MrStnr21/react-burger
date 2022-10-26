@@ -5,9 +5,9 @@ import {
   DragIcon,
   Button,
   CurrencyIcon,
-  Typography,
-  Box,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+import { BurgerPropTypes } from "../utils/PropTypes";
 
 export default function BurgerConstructor({ data }) {
   return (
@@ -61,10 +61,20 @@ export default function BurgerConstructor({ data }) {
           <p className="text text_type_digits-medium">4815162342</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" htmlType="button">
           Оформить заказ
         </Button>
       </div>
     </section>
   );
 }
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(BurgerPropTypes).isRequired,
+};
+
+ConstructorElement.propTypes = {
+  text: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+};
