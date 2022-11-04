@@ -4,7 +4,6 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import Modal from "../modal/modal";
-import { dataBurgers } from "../utils/data";
 import { baseUrl } from "../utils/api";
 
 export default function App() {
@@ -32,11 +31,10 @@ export default function App() {
   return (
     <div className={`${stylesApp.App}`}>
       <AppHeader />
-      <main id="modal-root" className={`${stylesApp.main}`}>
+      <main className={`${stylesApp.main}`}>
         <BurgerIngredients data={dataApi.ingredients} />
         <BurgerConstructor data={dataApi.ingredients} />
       </main>
-      <Modal />
     </div>
   );
 }
