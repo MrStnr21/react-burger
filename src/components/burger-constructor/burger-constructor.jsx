@@ -8,8 +8,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { BurgerPropTypes } from "../utils/PropTypes";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 
 export default function BurgerConstructor({ data }) {
+  const [openModal, setModal] = React.useState(false);
+
+  const orderClick = () => {
+    setModal(true);
+  };
+
   return (
     <section className={`${stylesConsctructor.section}`}>
       <div className={`${stylesConsctructor.items}`}>
@@ -67,10 +75,20 @@ export default function BurgerConstructor({ data }) {
           <p className="text text_type_digits-medium">4815162342</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large" htmlType="button">
+        <Button
+          type="primary"
+          size="large"
+          htmlType="button"
+          onClick={orderClick}
+        >
           Оформить заказ
         </Button>
       </div>
+      {openModal && (
+        <Modal setOpenModal={setModal}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 }

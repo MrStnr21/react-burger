@@ -1,5 +1,4 @@
 import React from "react";
-import Modal from "../modal/modal";
 import logoDone from "../../images/done.svg";
 import stylesOrderDetails from "./order-details.module.css";
 

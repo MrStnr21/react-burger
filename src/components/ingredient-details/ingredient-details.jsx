@@ -2,7 +2,7 @@ import React from "react";
 import logoIngredient from "../../images/meat-01.svg";
 import StylesIngredientDetails from "./ingredient-details.module.css";
 
-export default function IngredientDetails() {
+export default function IngredientDetails({ data }) {
   return (
     <>
       <p
@@ -12,12 +12,13 @@ export default function IngredientDetails() {
       </p>
       <img
         className={`${StylesIngredientDetails.image}`}
-        src={logoIngredient}
+        src={data.image_large}
+        alt={data.name}
       />
       <p
         className={`${StylesIngredientDetails.name} text text_type_main-medium`}
       >
-        Биокотлета из марсианской Магнолии
+        {data.name}
       </p>
       <ul className={`${StylesIngredientDetails.energy_value}`}>
         <li>
@@ -25,7 +26,7 @@ export default function IngredientDetails() {
             Калории,ккал
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            69
+            {data.calories}
           </p>
         </li>
         <li>
@@ -33,7 +34,7 @@ export default function IngredientDetails() {
             Белки, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            69
+            {data.proteins}
           </p>
         </li>
         <li>
@@ -41,7 +42,7 @@ export default function IngredientDetails() {
             Жиры, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            69
+            {data.fat}
           </p>
         </li>
         <li>
@@ -49,7 +50,7 @@ export default function IngredientDetails() {
             Углеводы, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            69
+            {data.carbohydrates}
           </p>
         </li>
       </ul>
