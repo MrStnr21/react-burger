@@ -3,11 +3,11 @@ import stylesApp from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import { baseUrl } from "../utils/api";
 
 export default function App() {
   const [dataApi, setDataApi] = React.useState({
+    hasError: false,
     ingredients: [],
   });
 
@@ -17,9 +17,10 @@ export default function App() {
         return res.json();
       })
       .then((data) => {
-        setDataApi({ ingredients: data.data });
+        setDataApi({ ...dataApi, ingredients: data.data });
       })
       .catch((err) => {
+        setDataApi({ ...dataApi, hasError: true });
         return console.log(`Ошибка ${err}, запрос не выполнен`);
       });
   };
@@ -31,10 +32,12 @@ export default function App() {
   return (
     <div className={`${stylesApp.App}`}>
       <AppHeader />
-      <main id="modal" className={`${stylesApp.main}`}>
-        <BurgerIngredients data={dataApi.ingredients} />
-        <BurgerConstructor data={dataApi.ingredients} />
-      </main>
+      {dataApi.ingredients && !dataApi.hasError && (
+        <main className={`${stylesApp.main}`}>
+          <BurgerIngredients data={dataApi.ingredients} />
+          <BurgerConstructor data={dataApi.ingredients} />
+        </main>
+      )}
     </div>
   );
 }

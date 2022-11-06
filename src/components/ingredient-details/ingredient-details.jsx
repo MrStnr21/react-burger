@@ -1,6 +1,7 @@
 import React from "react";
-import logoIngredient from "../../images/meat-01.svg";
 import StylesIngredientDetails from "./ingredient-details.module.css";
+import PropTypes from "prop-types";
+import { BurgerPropTypes } from "../utils/PropTypes";
 
 export default function IngredientDetails({ data }) {
   return (
@@ -57,3 +58,7 @@ export default function IngredientDetails({ data }) {
     </>
   );
 }
+
+IngredientDetails.propTypes = {
+  data: PropTypes.oneOfType([BurgerPropTypes]).isRequired,
+};

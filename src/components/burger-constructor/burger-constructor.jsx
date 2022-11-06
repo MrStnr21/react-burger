@@ -6,15 +6,15 @@ import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { BurgerPropTypes } from "../utils/PropTypes";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import PropTypes from "prop-types";
+import { BurgerPropTypes } from "../utils/PropTypes";
 
 export default function BurgerConstructor({ data }) {
   const [openModal, setModal] = React.useState(false);
 
-  const orderClick = () => {
+  const handleClick = () => {
     setModal(true);
   };
 
@@ -79,7 +79,7 @@ export default function BurgerConstructor({ data }) {
           type="primary"
           size="large"
           htmlType="button"
-          onClick={orderClick}
+          onClick={handleClick}
         >
           Оформить заказ
         </Button>

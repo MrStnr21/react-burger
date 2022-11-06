@@ -1,6 +1,6 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import stylesTab from './burger-ingredients-tab.module.css';
+import stylesTab from "./burger-ingredients-tab.module.css";
 
 export default function TabBurgerIngredients() {
   const [current, setCurrent] = React.useState("one");

@@ -5,10 +5,24 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import TabBurgerIngredients from "../burger-ingredients-tab/burger-ingredients-tab";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import { BurgerPropTypes } from "../utils/PropTypes";
 
 export default function BurgerIngredients({ data }) {
+  const [openModal, setModal] = React.useState(false);
+  const [ingredient, setIngredient] = React.useState();
+
+  const handleClick = (event) => {
+    setModal(true);
+    setIngredient(event);
+  };
+
+  React.useEffect(() => {
+    handleClick();
+  }, []);
+
   return (
     <section className={`${stylesIngredients.section}`}>
       <h2 className={`${stylesIngredients.title} text text_type_main-large`}>
@@ -26,7 +40,11 @@ export default function BurgerIngredients({ data }) {
                 }
               })
               .map((item) => (
-                <li className={`${stylesIngredients.item}`} key={item._id}>
+                <li
+                  className={`${stylesIngredients.item}`}
+                  key={item._id}
+                  onClick={(event) => handleClick(item)}
+                >
                   <img src={item.image} alt={item.name} />
                   <div className={`${stylesIngredients.price}`}>
                     <p className="text text_type_digits-default">
@@ -54,7 +72,11 @@ export default function BurgerIngredients({ data }) {
                 }
               })
               .map((item) => (
-                <li className={`${stylesIngredients.item}`} key={item._id}>
+                <li
+                  className={`${stylesIngredients.item}`}
+                  key={item._id}
+                  onClick={(event) => handleClick(item)}
+                >
                   <img src={item.image} alt={item.name} />
                   <div className={`${stylesIngredients.price}`}>
                     <p className="text text_type_digits-default">
@@ -82,7 +104,11 @@ export default function BurgerIngredients({ data }) {
                 }
               })
               .map((item) => (
-                <li className={`${stylesIngredients.item}`} key={item._id}>
+                <li
+                  className={`${stylesIngredients.item}`}
+                  key={item._id}
+                  onClick={(event) => handleClick(item)}
+                >
                   <img src={item.image} alt={item.name} />
                   <div className={`${stylesIngredients.price}`}>
                     <p className="text text_type_digits-default">
@@ -101,6 +127,11 @@ export default function BurgerIngredients({ data }) {
           </ul>
         </div>
       </div>
+      {openModal && ingredient && (
+        <Modal setOpenModal={setModal}>
+          <IngredientDetails data={ingredient} />
+        </Modal>
+      )}
     </section>
   );
 }

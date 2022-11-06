@@ -1,17 +1,34 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import stylesModal from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import OrderDetails from "../order-details/order-details";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import stylesModal from "./modal.module.css";
+import PropTypes from "prop-types";
 
 export default function Modal({ setOpenModal, children }) {
+  function closePopup() {
+    setOpenModal(false);
+  }
+
+  React.useEffect(() => {
+    const closelByEscape = (e) => {
+      if (e.key === "Escape") {
+        setOpenModal(false);
+      }
+    };
+    window.addEventListener("keydown", closelByEscape);
+
+    return () => window.removeEventListener("keydown", closelByEscape);
+  }, []);
+
   return ReactDOM.createPortal(
     <>
-      <ModalOverlay />
+      <ModalOverlay closeByOverlay={closePopup} />
       <div className={`${stylesModal.container}`}>
-        <button className={`${stylesModal.cross}`}>
+        <button
+          className={`${stylesModal.cross}`}
+          onClick={() => closePopup()}
+        >
           <CloseIcon type="primary" />
         </button>
         {children}
@@ -20,3 +37,7 @@ export default function Modal({ setOpenModal, children }) {
     document.getElementById("modal")
   );
 }
+Modal.propTypes = {
+  children: PropTypes.object.isRequired,
+  setOpenModal: PropTypes.func.isRequired,
+};
