@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ModalOverlay from "../modal-overlay/modal-overlay";
+import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import stylesModal from "./modal.module.css";
 import PropTypes from "prop-types";
 
-export default function Modal({ setOpenModal, children }) {
+export function Modal({ setOpenModal, children }) {
   function closePopup() {
     setOpenModal(false);
   }
@@ -13,7 +13,7 @@ export default function Modal({ setOpenModal, children }) {
   React.useEffect(() => {
     const closelByEscape = (e) => {
       if (e.key === "Escape") {
-        setOpenModal(false);
+        closePopup();
       }
     };
     window.addEventListener("keydown", closelByEscape);
@@ -25,10 +25,7 @@ export default function Modal({ setOpenModal, children }) {
     <>
       <ModalOverlay closeByOverlay={closePopup} />
       <div className={`${stylesModal.container}`}>
-        <button
-          className={`${stylesModal.cross}`}
-          onClick={() => closePopup()}
-        >
+        <button className={`${stylesModal.cross}`} onClick={closePopup}>
           <CloseIcon type="primary" />
         </button>
         {children}

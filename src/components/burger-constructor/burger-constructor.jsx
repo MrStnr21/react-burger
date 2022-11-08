@@ -6,12 +6,12 @@ import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
+import { Modal } from "../modal/modal";
+import { OrderDetails } from "../order-details/order-details";
 import PropTypes from "prop-types";
 import { BurgerPropTypes } from "../utils/PropTypes";
 
-export default function BurgerConstructor({ data }) {
+export function BurgerConstructor({ data }) {
   const [openModal, setModal] = React.useState(false);
 
   const handleClick = () => {

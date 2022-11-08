@@ -4,13 +4,13 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import TabBurgerIngredients from "../burger-ingredients-tab/burger-ingredients-tab";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import { TabBurgerIngredients } from "../burger-ingredients-tab/burger-ingredients-tab";
+import { Modal } from "../modal/modal";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import { BurgerPropTypes } from "../utils/PropTypes";
 
-export default function BurgerIngredients({ data }) {
+export function BurgerIngredients({ data }) {
   const [openModal, setModal] = React.useState(false);
   const [ingredient, setIngredient] = React.useState();
 
@@ -18,10 +18,6 @@ export default function BurgerIngredients({ data }) {
     setModal(true);
     setIngredient(event);
   };
-
-  React.useEffect(() => {
-    handleClick();
-  }, []);
 
   return (
     <section className={`${stylesIngredients.section}`}>

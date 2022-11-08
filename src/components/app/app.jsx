@@ -1,11 +1,11 @@
 import React from "react";
 import stylesApp from "./app.module.css";
-import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import { AppHeader } from "../app-header/app-header";
+import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
+import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 import { baseUrl } from "../utils/api";
 
-export default function App() {
+export function App() {
   const [dataApi, setDataApi] = React.useState({
     hasError: false,
     ingredients: [],
@@ -14,7 +14,10 @@ export default function App() {
   const getDataApi = () => {
     fetch(baseUrl)
       .then((res) => {
-        return res.json();
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
       })
       .then((data) => {
         setDataApi({ ...dataApi, ingredients: data.data });

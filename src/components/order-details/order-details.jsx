@@ -2,7 +2,7 @@ import React from "react";
 import logoDone from "../../images/done.svg";
 import stylesOrderDetails from "./order-details.module.css";
 
-export default function OrderDetails() {
+export function OrderDetails() {
   return (
     <>
       <p className={`${stylesOrderDetails.id} text text_type_digits-large`}>
