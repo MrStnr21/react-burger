@@ -1,46 +1,53 @@
-# Getting Started with Create React App
+# Stellar Burger
+### *Учебный проект от [Яндекс.Практикум](https://practicum.yandex.ru/web/)*
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Описание проекта
+Сайт бургерной. Здесь пользователь может собрать свой бургер из предложенных ингридиентов и оформить заказ.
 
-## Available Scripts
+## Функционал:
+- Отрисовка полученных ингридиентов;
+- Добавление и удаление ингридиентов из корзины(в работе);
+- Обработка ошибок.
 
-In the project directory, you can run:
+## Стек технологий:
+- React;
+- JS;
+- ООП;
+- API;
+- Webpack(в процессе);
+- CSS;
+- HTML.
 
-### `npm start`
+## Установка и запуск проекта:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Клонировать репозиторий:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    git clone https://github.com/MrStnr21/react-burger.git
 
-### `npm test`
+Установить зависимости:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    npm install
 
-### `npm run build`
+Собрать проект:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    npm run build
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Запустить проект:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    npm run start
 
-### `npm run eject`
+## Макет Проектной работы в Figma:
+- [Макет](https://www.figma.com/file/ocw9a6hNGeAejl4F3G9fp8/React-_-Проектные-задачи-(3-месяца)_external_link)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Скриншоты:
+<details><summary><b>Развернуть</b></summary>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![localhost_3000_](https://user-images.githubusercontent.com/104725482/200837604-dd65c4ad-5958-4da8-b6ef-8e916d55bcfe.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![localhost_3000_ (1)](https://user-images.githubusercontent.com/104725482/200837627-5a2cff57-62e1-4d3d-896a-a7170b32e6a9.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![localhost_3000_ (2)](https://user-images.githubusercontent.com/104725482/200837652-ad170e44-a5c1-45e2-a62b-55ff6f7bff0f.png)
 
-## Learn More
+</details>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Ссылка на сайт:
