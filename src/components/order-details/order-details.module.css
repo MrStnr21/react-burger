@@ -1,0 +1,23 @@
+.id {
+  margin-top: 120px;
+  padding: 0;
+}
+
+.order_id {
+  margin-top: 32px;
+  padding: 0;
+}
+
+.image {
+  margin-top: 60px;
+}
+
+.status {
+  margin-top: 60px;
+  padding: 0;
+}
+
+.place {
+  margin: 8px 0 120px;
+  padding: 0;
+}
