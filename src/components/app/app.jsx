@@ -4,6 +4,7 @@ import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 import { baseUrl } from "../utils/api";
+import { BurgerContext } from "../../services/burger-context";
 
 export function App() {
   const [dataApi, setDataApi] = React.useState({
@@ -27,7 +28,7 @@ export function App() {
         return console.log(`Ошибка ${err}, запрос не выполнен`);
       });
   };
-
+  
   React.useEffect(() => {
     getDataApi();
   }, []);
@@ -37,8 +38,10 @@ export function App() {
       <AppHeader />
       {dataApi.ingredients && !dataApi.hasError && (
         <main className={`${stylesApp.main}`}>
-          <BurgerIngredients data={dataApi.ingredients} />
-          <BurgerConstructor data={dataApi.ingredients} />
+          <BurgerContext.Provider value={dataApi.ingredients}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </BurgerContext.Provider>
         </main>
       )}
     </div>

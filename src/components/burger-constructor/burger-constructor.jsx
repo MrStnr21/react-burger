@@ -8,15 +8,22 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-import PropTypes from "prop-types";
-import { BurgerPropTypes } from "../utils/PropTypes";
+import { BurgerContext } from "../../services/burger-context";
 
-export function BurgerConstructor({ data }) {
+export function BurgerConstructor() {
   const [openModal, setModal] = React.useState(false);
+  const dataApi = React.useContext(BurgerContext);
+  const [totalSum, setTotalSum] = React.useState();
 
   const handleClick = () => {
     setModal(true);
   };
+
+  React.useEffect(() => {
+    let totalSum = 0;
+    dataApi.map((item) => (totalSum += item.price));
+    setTotalSum(totalSum);
+  }, [dataApi, setTotalSum]);
 
   return (
     <section className={`${stylesConsctructor.section}`}>
@@ -38,9 +45,9 @@ export function BurgerConstructor({ data }) {
           <ul
             className={`${stylesConsctructor.list} ${stylesConsctructor.topping}`}
           >
-            {data
+            {dataApi
               .filter((item) => {
-                if (item.type !== "bun") {
+                if (item.type !== "bun" && item.type !== "sauce") {
                   return item;
                 }
               })
@@ -72,7 +79,7 @@ export function BurgerConstructor({ data }) {
       </div>
       <div className={`${stylesConsctructor.total}`}>
         <div className={`${stylesConsctructor.price}`}>
-          <p className="text text_type_digits-medium">4815162342</p>
+          <p className="text text_type_digits-medium">{totalSum}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button
@@ -92,7 +99,3 @@ export function BurgerConstructor({ data }) {
     </section>
   );
 }
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(BurgerPropTypes).isRequired,
-};

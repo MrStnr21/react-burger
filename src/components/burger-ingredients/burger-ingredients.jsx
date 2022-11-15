@@ -9,10 +9,12 @@ import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import PropTypes from "prop-types";
 import { BurgerPropTypes } from "../utils/PropTypes";
+import { BurgerContext } from "../../services/burger-context";
 
-export function BurgerIngredients({ data }) {
+export function BurgerIngredients() {
   const [openModal, setModal] = React.useState(false);
   const [ingredient, setIngredient] = React.useState();
+  const dataApi = React.useContext(BurgerContext);
 
   const handleClick = (event) => {
     setModal(true);
@@ -29,7 +31,7 @@ export function BurgerIngredients({ data }) {
         <div>
           <h2 className={`text text_type_main-medium`}>Булки</h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {data
+            {dataApi
               .filter((item) => {
                 if (item.type === "bun") {
                   return item;
@@ -61,7 +63,7 @@ export function BurgerIngredients({ data }) {
         <div>
           <h2 className={`text text_type_main-medium`}>Соусы</h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {data
+            {dataApi
               .filter((item) => {
                 if (item.type === "sauce") {
                   return item;
@@ -93,7 +95,7 @@ export function BurgerIngredients({ data }) {
         <div>
           <h2 className={`text text_type_main-medium`}>Начинки</h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {data
+            {dataApi
               .filter((item) => {
                 if (item.type === "main") {
                   return item;
@@ -131,7 +133,3 @@ export function BurgerIngredients({ data }) {
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(BurgerPropTypes).isRequired,
-};
