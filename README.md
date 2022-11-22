@@ -50,4 +50,4 @@
 
 </details>
 
-## Ссылка на сайт:
+## Ссылка на сайт: https://mrstnr21.github.io/react-burger/
