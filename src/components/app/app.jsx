@@ -3,32 +3,22 @@ import stylesApp from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor";
-import { baseUrl } from "../utils/api";
 import { BurgerContext } from "../../services/burger-context";
+import { getIngredients } from "../utils/api";
 
 export function App() {
-  const [dataApi, setDataApi] = React.useState({
-    hasError: false,
-    ingredients: [],
-  });
+  const [ingredients, setIngredients] = React.useState([]);
 
   const getDataApi = () => {
-    fetch(baseUrl)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
+    getIngredients()
       .then((data) => {
-        setDataApi({ ...dataApi, ingredients: data.data });
+        setIngredients([...data.data]);
       })
       .catch((err) => {
-        setDataApi({ ...dataApi, hasError: true });
-        return console.log(`Ошибка ${err}, запрос не выполнен`);
+        console.log(`Ошибка ${err}, запрос не выполнен`);
       });
   };
-  
+
   React.useEffect(() => {
     getDataApi();
   }, []);
@@ -36,9 +26,9 @@ export function App() {
   return (
     <div className={`${stylesApp.App}`}>
       <AppHeader />
-      {dataApi.ingredients && !dataApi.hasError && (
+      {ingredients.length > 0 && (
         <main className={`${stylesApp.main}`}>
-          <BurgerContext.Provider value={dataApi.ingredients}>
+          <BurgerContext.Provider value={{ ingredients }}>
             <BurgerIngredients />
             <BurgerConstructor />
           </BurgerContext.Provider>
