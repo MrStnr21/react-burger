@@ -1,6 +1,7 @@
 import React from "react";
 import logoDone from "../../images/done.svg";
 import stylesOrderDetails from "./order-details.module.css";
+import PropTypes from "prop-types";
 
 export function OrderDetails(props) {
   return (
@@ -29,3 +30,7 @@ export function OrderDetails(props) {
     </>
   );
 }
+
+OrderDetails.propTypes = {
+  orderNum: PropTypes.number,
+};

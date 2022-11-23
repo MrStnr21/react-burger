@@ -7,8 +7,6 @@ import {
 import { TabBurgerIngredients } from "../burger-ingredients-tab/burger-ingredients-tab";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import PropTypes from "prop-types";
-import { BurgerPropTypes } from "../utils/PropTypes";
 import { BurgerContext } from "../../services/burger-context";
 
 export function BurgerIngredients() {
@@ -22,7 +20,7 @@ export function BurgerIngredients() {
   };
 
   const buns = React.useMemo(
-    () => ingredients.filter((data) => data .type === "bun"),
+    () => ingredients.filter((data) => data.type === "bun"),
     [ingredients]
   );
   const sauces = React.useMemo(
