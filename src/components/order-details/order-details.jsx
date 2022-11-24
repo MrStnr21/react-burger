@@ -32,5 +32,5 @@ export function OrderDetails(props) {
 }
 
 OrderDetails.propTypes = {
-  orderNum: PropTypes.number,
+  orderNum: PropTypes.number.isRequired,
 };

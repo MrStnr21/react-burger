@@ -9,17 +9,17 @@ import { getIngredients } from "../utils/api";
 export function App() {
   const [ingredients, setIngredients] = React.useState([]);
 
-  const getDataApi = () => {
-    getIngredients()
-      .then((data) => {
-        setIngredients([...data.data]);
-      })
-      .catch((err) => {
-        console.log(`Ошибка ${err}, запрос не выполнен`);
-      });
-  };
-
   React.useEffect(() => {
+    const getDataApi = () => {
+      getIngredients()
+        .then((res) => {
+          setIngredients(res.data);
+        })
+        .catch((err) => {
+          console.log(`Ошибка ${err}, запрос не выполнен`);
+        });
+    };
+
     getDataApi();
   }, []);
 

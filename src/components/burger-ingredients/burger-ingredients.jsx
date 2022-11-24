@@ -12,7 +12,12 @@ import { BurgerContext } from "../../services/burger-context";
 export function BurgerIngredients() {
   const [openModal, setModal] = React.useState(false);
   const [ingredient, setIngredient] = React.useState();
+
   const { ingredients } = React.useContext(BurgerContext);
+
+  const refBuns = React.useRef();
+  const refSauces = React.useRef();
+  const refMain = React.useRef();
 
   const handleClickModal = (event) => {
     setModal(true);
@@ -32,15 +37,32 @@ export function BurgerIngredients() {
     [ingredients]
   );
 
+  const handleClickTab = (value) => {
+    switch (value) {
+      case "buns":
+        refBuns.current.scrollIntoView({ behavior: "smooth" });
+        break;
+      case "sauces":
+        refSauces.current.scrollIntoView({ behavior: "smooth" });
+        break;
+      case "main":
+        refMain.current.scrollIntoView({ behavior: "smooth" });
+        break;
+      // no default
+    }
+  };
+
   return (
     <section className={`${stylesIngredients.section}`}>
       <h2 className={`${stylesIngredients.title} text text_type_main-large`}>
         Соберите бургер
       </h2>
-      <TabBurgerIngredients />
+      <TabBurgerIngredients onClickTab={handleClickTab} />
       <div className={`${stylesIngredients.container}`}>
         <div>
-          <h2 className={`text text_type_main-medium`}>Булки</h2>
+          <h2 ref={refBuns} className={`text text_type_main-medium`}>
+            Булки
+          </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
             {buns.map((item) => (
               <li
@@ -64,7 +86,9 @@ export function BurgerIngredients() {
           </ul>
         </div>
         <div>
-          <h2 className={`text text_type_main-medium`}>Соусы</h2>
+          <h2 ref={refSauces} className={`text text_type_main-medium`}>
+            Соусы
+          </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
             {sauces.map((item) => (
               <li
@@ -88,7 +112,9 @@ export function BurgerIngredients() {
           </ul>
         </div>
         <div>
-          <h2 className={`text text_type_main-medium`}>Начинки</h2>
+          <h2 ref={refMain} className={`text text_type_main-medium`}>
+            Начинки
+          </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
             {main.map((item) => (
               <li

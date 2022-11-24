@@ -41,7 +41,11 @@ export function BurgerConstructor() {
   };
 
   const handleClickOrder = () => {
-    makeOrder(ingredients.map((ingredient) => ingredient._id))
+    makeOrder([
+      buns._id,
+      ...otherIngs.map((ingredient) => ingredient._id),
+      buns._id,
+    ])
       .then((data) => {
         if (data.success) {
           setOrderNum(data);
