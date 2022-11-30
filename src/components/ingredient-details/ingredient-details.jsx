@@ -1,6 +1,4 @@
-import React from "react";
 import StylesIngredientDetails from "./ingredient-details.module.css";
-import PropTypes from "prop-types";
 import { BurgerPropTypes } from "../utils/PropTypes";
 
 export function IngredientDetails({ data }) {
@@ -60,5 +58,5 @@ export function IngredientDetails({ data }) {
 }
 
 IngredientDetails.propTypes = {
-  data: PropTypes.oneOfType([BurgerPropTypes]).isRequired,
+  data: BurgerPropTypes.isRequired,
 };

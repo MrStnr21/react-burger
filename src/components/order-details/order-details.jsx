@@ -1,12 +1,13 @@
 import React from "react";
 import logoDone from "../../images/done.svg";
 import stylesOrderDetails from "./order-details.module.css";
+import PropTypes from "prop-types";
 
-export function OrderDetails() {
+export function OrderDetails(props) {
   return (
     <>
       <p className={`${stylesOrderDetails.id} text text_type_digits-large`}>
-        021
+        {props.orderNum}
       </p>
       <p
         className={`${stylesOrderDetails.order_id} text text_type_main-medium`}
@@ -29,3 +30,7 @@ export function OrderDetails() {
     </>
   );
 }
+
+OrderDetails.propTypes = {
+  orderNum: PropTypes.number.isRequired,
+};

@@ -7,16 +7,49 @@ import {
 import { TabBurgerIngredients } from "../burger-ingredients-tab/burger-ingredients-tab";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import PropTypes from "prop-types";
-import { BurgerPropTypes } from "../utils/PropTypes";
+import { BurgerContext } from "../../services/burger-context";
 
-export function BurgerIngredients({ data }) {
+export function BurgerIngredients() {
   const [openModal, setModal] = React.useState(false);
   const [ingredient, setIngredient] = React.useState();
 
-  const handleClick = (event) => {
+  const { ingredients } = React.useContext(BurgerContext);
+
+  const refBuns = React.useRef();
+  const refSauces = React.useRef();
+  const refMain = React.useRef();
+
+  const handleClickModal = (event) => {
     setModal(true);
     setIngredient(event);
+  };
+
+  const buns = React.useMemo(
+    () => ingredients.filter((data) => data.type === "bun"),
+    [ingredients]
+  );
+  const sauces = React.useMemo(
+    () => ingredients.filter((data) => data.type === "sauce"),
+    [ingredients]
+  );
+  const main = React.useMemo(
+    () => ingredients.filter((data) => data.type === "main"),
+    [ingredients]
+  );
+
+  const handleClickTab = (value) => {
+    switch (value) {
+      case "buns":
+        refBuns.current.scrollIntoView({ behavior: "smooth" });
+        break;
+      case "sauces":
+        refSauces.current.scrollIntoView({ behavior: "smooth" });
+        break;
+      case "main":
+        refMain.current.scrollIntoView({ behavior: "smooth" });
+        break;
+      // no default
+    }
   };
 
   return (
@@ -24,102 +57,84 @@ export function BurgerIngredients({ data }) {
       <h2 className={`${stylesIngredients.title} text text_type_main-large`}>
         Соберите бургер
       </h2>
-      <TabBurgerIngredients />
+      <TabBurgerIngredients onClickTab={handleClickTab} />
       <div className={`${stylesIngredients.container}`}>
         <div>
-          <h2 className={`text text_type_main-medium`}>Булки</h2>
+          <h2 ref={refBuns} className={`text text_type_main-medium`}>
+            Булки
+          </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {data
-              .filter((item) => {
-                if (item.type === "bun") {
-                  return item;
-                }
-              })
-              .map((item) => (
-                <li
-                  className={`${stylesIngredients.item}`}
-                  key={item._id}
-                  onClick={(event) => handleClick(item)}
+            {buns.map((item) => (
+              <li
+                className={`${stylesIngredients.item}`}
+                key={item._id}
+                onClick={(event) => handleClickModal(item)}
+              >
+                <img src={item.image} alt={item.name} />
+                <div className={`${stylesIngredients.price}`}>
+                  <p className="text text_type_digits-default">{item.price}</p>
+                  <CurrencyIcon type="primary" />
+                </div>
+                <p
+                  className={`${stylesIngredients.name} text text_type_main-default`}
                 >
-                  <img src={item.image} alt={item.name} />
-                  <div className={`${stylesIngredients.price}`}>
-                    <p className="text text_type_digits-default">
-                      {item.price}
-                    </p>
-                    <CurrencyIcon type="primary" />
-                  </div>
-                  <p
-                    className={`${stylesIngredients.name} text text_type_main-default`}
-                  >
-                    {item.name}
-                  </p>
-                  <Counter count={0} size="default" />
-                </li>
-              ))}
+                  {item.name}
+                </p>
+                <Counter count={0} size="default" />
+              </li>
+            ))}
           </ul>
         </div>
         <div>
-          <h2 className={`text text_type_main-medium`}>Соусы</h2>
+          <h2 ref={refSauces} className={`text text_type_main-medium`}>
+            Соусы
+          </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {data
-              .filter((item) => {
-                if (item.type === "sauce") {
-                  return item;
-                }
-              })
-              .map((item) => (
-                <li
-                  className={`${stylesIngredients.item}`}
-                  key={item._id}
-                  onClick={(event) => handleClick(item)}
+            {sauces.map((item) => (
+              <li
+                className={`${stylesIngredients.item}`}
+                key={item._id}
+                onClick={(event) => handleClickModal(item)}
+              >
+                <img src={item.image} alt={item.name} />
+                <div className={`${stylesIngredients.price}`}>
+                  <p className="text text_type_digits-default">{item.price}</p>
+                  <CurrencyIcon type="primary" />
+                </div>
+                <p
+                  className={`${stylesIngredients.name} text text_type_main-default`}
                 >
-                  <img src={item.image} alt={item.name} />
-                  <div className={`${stylesIngredients.price}`}>
-                    <p className="text text_type_digits-default">
-                      {item.price}
-                    </p>
-                    <CurrencyIcon type="primary" />
-                  </div>
-                  <p
-                    className={`${stylesIngredients.name} text text_type_main-default`}
-                  >
-                    {item.name}
-                  </p>
-                  <Counter count={0} size="default" />
-                </li>
-              ))}
+                  {item.name}
+                </p>
+                <Counter count={0} size="default" />
+              </li>
+            ))}
           </ul>
         </div>
         <div>
-          <h2 className={`text text_type_main-medium`}>Начинки</h2>
+          <h2 ref={refMain} className={`text text_type_main-medium`}>
+            Начинки
+          </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {data
-              .filter((item) => {
-                if (item.type === "main") {
-                  return item;
-                }
-              })
-              .map((item) => (
-                <li
-                  className={`${stylesIngredients.item}`}
-                  key={item._id}
-                  onClick={(event) => handleClick(item)}
+            {main.map((item) => (
+              <li
+                className={`${stylesIngredients.item}`}
+                key={item._id}
+                onClick={(event) => handleClickModal(item)}
+              >
+                <img src={item.image} alt={item.name} />
+                <div className={`${stylesIngredients.price}`}>
+                  <p className="text text_type_digits-default">{item.price}</p>
+                  <CurrencyIcon type="primary" />
+                </div>
+                <p
+                  className={`${stylesIngredients.name} text text_type_main-default`}
                 >
-                  <img src={item.image} alt={item.name} />
-                  <div className={`${stylesIngredients.price}`}>
-                    <p className="text text_type_digits-default">
-                      {item.price}
-                    </p>
-                    <CurrencyIcon type="primary" />
-                  </div>
-                  <p
-                    className={`${stylesIngredients.name} text text_type_main-default`}
-                  >
-                    {item.name}
-                  </p>
-                  <Counter count={0} size="default" />
-                </li>
-              ))}
+                  {item.name}
+                </p>
+                <Counter count={0} size="default" />
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -131,7 +146,3 @@ export function BurgerIngredients({ data }) {
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(BurgerPropTypes).isRequired,
-};
