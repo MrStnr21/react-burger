@@ -7,6 +7,7 @@ import { BurgerContext } from "../../services/burger-context";
 import { getIngredients } from "../utils/api";
 
 export function App() {
+
   const [ingredients, setIngredients] = React.useState([]);
 
   React.useEffect(() => {
