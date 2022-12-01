@@ -7,13 +7,11 @@ import {
 import { TabBurgerIngredients } from "../burger-ingredients-tab/burger-ingredients-tab";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { BurgerContext } from "../../services/burger-context";
 
 export function BurgerIngredients() {
   const [openModal, setModal] = React.useState(false);
   const [ingredient, setIngredient] = React.useState();
 
-  const { ingredients } = React.useContext(BurgerContext);
 
   const refBuns = React.useRef();
   const refSauces = React.useRef();

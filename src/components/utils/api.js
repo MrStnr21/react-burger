@@ -6,11 +6,11 @@ const request = (url, options) => {
   );
 };
 
-export function getIngredients() {
+export function getIngredientsApi() {
   return request(`${baseUrl}/ingredients`);
 }
 
-export function makeOrder(ingredientsId) {
+export function makeOrderApi(ingredientsId) {
   return request(`${baseUrl}/orders`, {
     method: "POST",
     headers: {
