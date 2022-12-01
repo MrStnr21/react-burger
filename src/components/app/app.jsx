@@ -1,38 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import stylesApp from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor";
-// import { BurgerContext } from "../../services/burger-context";
-import { getIngredients } from "../utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import { getIngredients } from "../../services/actions/ingredients";
 
 export function App() {
+  const dispatch = useDispatch();
+  const { ingredientsRequest, ingredientsFailed } = useSelector(
+    (store) => store.ingredients
+  );
 
-  // const [ingredients, setIngredients] = React.useState([]);
-
-  // React.useEffect(() => {
-  //   const getDataApi = () => {
-  //     getIngredients()
-  //       .then((res) => {
-  //         setIngredients(res.data);
-  //       })
-  //       .catch((err) => {
-  //         console.log(`Ошибка ${err}, запрос не выполнен`);
-  //       });
-  //   };
-
-  //   getDataApi();
-  // }, []);
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <div className={`${stylesApp.App}`}>
       <AppHeader />
-      {ingredients.length > 0 && (
+      {!ingredientsRequest && !ingredientsFailed && (
         <main className={`${stylesApp.main}`}>
-          {/* <BurgerContext.Provider value={{ ingredients }}> */}
-            <BurgerIngredients />
-            <BurgerConstructor />
-          {/* </BurgerContext.Provider> */}
+          <BurgerIngredients />
+          {/* <BurgerConstructor /> */}
         </main>
       )}
     </div>

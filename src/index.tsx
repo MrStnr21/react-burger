@@ -8,7 +8,7 @@ import { compose, applyMiddleware } from "redux";
 import { legacy_createStore as createStore } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import { rootReducer } from "./services/reducers/root-reducer";
+import { rootReducer } from "./services/reducers";
 
 declare global {
   interface Window {

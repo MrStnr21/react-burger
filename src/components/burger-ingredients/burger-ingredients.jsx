@@ -7,20 +7,28 @@ import {
 import { TabBurgerIngredients } from "../burger-ingredients-tab/burger-ingredients-tab";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  openIngredientInfo,
+  closeIngredientInfo,
+} from "../../services/actions/ingredient-details";
 
 export function BurgerIngredients() {
-  const [openModal, setModal] = React.useState(false);
-  const [ingredient, setIngredient] = React.useState();
+  const dispatch = useDispatch();
+  const ingredients = useSelector((store) => store.ingredients);
+  const { showedIngredient } = useSelector((store) => store.IngredientDetails);
 
+  const openPopup = (ingredient) => {
+    dispatch(openIngredientInfo(ingredient));
+  };
+
+  const closePopup = () => {
+    dispatch(closeIngredientInfo());
+  };
 
   const refBuns = React.useRef();
   const refSauces = React.useRef();
   const refMain = React.useRef();
-
-  const handleClickModal = (event) => {
-    setModal(true);
-    setIngredient(event);
-  };
 
   const buns = React.useMemo(
     () => ingredients.filter((data) => data.type === "bun"),
@@ -66,7 +74,7 @@ export function BurgerIngredients() {
               <li
                 className={`${stylesIngredients.item}`}
                 key={item._id}
-                onClick={(event) => handleClickModal(item)}
+                onClick={(event) => openPopup(item)}
               >
                 <img src={item.image} alt={item.name} />
                 <div className={`${stylesIngredients.price}`}>
@@ -92,7 +100,7 @@ export function BurgerIngredients() {
               <li
                 className={`${stylesIngredients.item}`}
                 key={item._id}
-                onClick={(event) => handleClickModal(item)}
+                onClick={(event) => openPopup(item)}
               >
                 <img src={item.image} alt={item.name} />
                 <div className={`${stylesIngredients.price}`}>
@@ -118,7 +126,7 @@ export function BurgerIngredients() {
               <li
                 className={`${stylesIngredients.item}`}
                 key={item._id}
-                onClick={(event) => handleClickModal(item)}
+                onClick={(event) => openPopup(item)}
               >
                 <img src={item.image} alt={item.name} />
                 <div className={`${stylesIngredients.price}`}>
@@ -136,9 +144,9 @@ export function BurgerIngredients() {
           </ul>
         </div>
       </div>
-      {openModal && ingredient && (
-        <Modal setOpenModal={setModal}>
-          <IngredientDetails data={ingredient} />
+      {showedIngredient && (
+        <Modal setOpenModal={closePopup}>
+          <IngredientDetails data={showedIngredient} />
         </Modal>
       )}
     </section>

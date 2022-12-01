@@ -9,7 +9,7 @@ import {
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { BurgerContext } from "../../services/burger-context";
-import { makeOrder } from "../utils/api";
+import { makeOrderApi } from "../utils/api";
 
 export function BurgerConstructor() {
   const { ingredients } = React.useContext(BurgerContext);
@@ -41,7 +41,7 @@ export function BurgerConstructor() {
   };
 
   const handleClickOrder = () => {
-    makeOrder([
+    makeOrderApi([
       buns._id,
       ...otherIngs.map((ingredient) => ingredient._id),
       buns._id,
