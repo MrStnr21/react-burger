@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import stylesConsctructor from "./burger-constructor.module.css";
 import {
   ConstructorElement,
@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-import { makeOrderApi } from "../utils/api";
+// import { makeOrderApi } from "../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import { makeOrder, closeOrder } from "../../services/actions/order";
 
@@ -19,9 +19,9 @@ export function BurgerConstructor() {
   );
   const { orderDetailOpen } = useSelector((store) => store.order);
 
-  const [finalSum, setFinalSum] = React.useState(0);
+  const [finalSum, setFinalSum] = useState(0);
 
-  const orderListIngredients = React.useMemo(
+  const orderListIngredients = useMemo(
     () => ({
       ingredients: [
         selectedBun?.info._id,
@@ -40,17 +40,17 @@ export function BurgerConstructor() {
     dispatch(closeOrder());
   };
 
-  const buns = React.useMemo(
+  const buns = useMemo(
     () => selectedBun.find((item) => item.type === "bun"),
     [selectedBun]
   );
 
-  const otherIngs = React.useMemo(
+  const otherIngs = useMemo(
     () => selectedIngredient.filter((item) => item.type !== "bun"),
     [selectedIngredient]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const counterPrice = otherIngs.reduce(
       (sum, ingredient) => (sum += ingredient.price),
       0

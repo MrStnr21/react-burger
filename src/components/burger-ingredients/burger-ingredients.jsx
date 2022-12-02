@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import stylesIngredients from "./burger-ingredients.module.css";
 import {
   Counter,
@@ -15,20 +15,31 @@ export function BurgerIngredients() {
   const { ingredients } = useSelector((store) => store.ingredients);
   const { showedIngredient } = useSelector((store) => store.ingredientDetails);
 
-  const refBuns = React.useRef(null);
-  const refSauces = React.useRef(null);
-  const refMain = React.useRef(null);
+  const [startScroll, setStartScroll] = useState();
 
-  const buns = React.useMemo(
+  useEffect(() => {
+    if (refTab) {
+      setStartScroll(refTab.current.getBoundingClientRect().bottom);
+    }
+  }, [startScroll]);
+
+  const refTab = useRef();
+  const refBuns = useRef();
+  const refSauces = useRef();
+  const refMain = useRef();
+
+  const [currentIndexTab, setCurrentIndexTab] = useState(0);
+
+  const buns = useMemo(
     () => ingredients.filter((data) => data.type === "bun"),
     [ingredients]
   );
 
-  const sauces = React.useMemo(
+  const sauces = useMemo(
     () => ingredients.filter((data) => data.type === "sauce"),
     [ingredients]
   );
-  const main = React.useMemo(
+  const main = useMemo(
     () => ingredients.filter((data) => data.type === "main"),
     [ingredients]
   );
@@ -44,7 +55,26 @@ export function BurgerIngredients() {
       case "main":
         refMain.current.scrollIntoView({ behavior: "smooth" });
         break;
+      // no default
     }
+  };
+
+  const handleTabScroll = () => {
+    const buns = Math.abs(
+      startScroll - refBuns.current.getBoundingClientRect().top
+    );
+    const sauces = Math.abs(
+      startScroll - refSauces.current.getBoundingClientRect().top
+    );
+    const main = Math.abs(
+      startScroll - refMain.current.getBoundingClientRect().top
+    );
+
+    const arr = [buns, sauces, main];
+
+    const activeTab = Math.min(...arr);
+    const index = arr.findIndex((el) => el === activeTab);
+    setCurrentIndexTab(index);
   };
 
   const openPopup = (ingredient) => {
@@ -60,8 +90,15 @@ export function BurgerIngredients() {
       <h2 className={`${stylesIngredients.title} text text_type_main-large`}>
         Соберите бургер
       </h2>
-      <TabBurgerIngredients onClickTab={handleClickTab} />
-      <div className={`${stylesIngredients.container}`}>
+      <TabBurgerIngredients
+        refTab={refTab}
+        onClickTab={handleClickTab}
+        currentIndexTab={currentIndexTab}
+      />
+      <div
+        onScroll={handleTabScroll}
+        className={`${stylesIngredients.container}`}
+      >
         <div>
           <h2 ref={refBuns} className={`text text_type_main-medium`}>
             Булки
