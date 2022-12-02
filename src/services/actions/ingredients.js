@@ -11,18 +11,19 @@ export const getIngredients = () => {
     });
 
     getIngredientsApi()
-      .then((res) => {
-        if (res && res.success) {
+      .then(
+        (res) =>
+          res &&
+          res.success &&
           dispatch({
             type: GET_INGREDIENTS_SUCCESS,
             payload: res.data,
-          });
-        }
-      })
-      .catch((err) => {
+          })
+      )
+      .catch((err) =>
         dispatch({
           type: GET_INGREDIENTS_FAILED,
-        });
-      });
+        })
+      );
   };
 };

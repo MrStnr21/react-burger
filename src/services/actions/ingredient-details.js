@@ -1,11 +1,11 @@
-export const OPEN_INGREDIENT_INFO = "OPEN_INGREDIENT_INFO";
-export const CLOSE_INGREDIENT_INFO = "CLOSE_INGREDIENT_INFO";
+export const OPEN_INGREDIENT_DETAILS = "OPEN_INGREDIENT_DETAILS";
+export const CLOSE_INGREDIENT_DETAILS = "CLOSE_INGREDIENT_DETAILS";
 
-export const openIngredientInfo = (ingredient) => ({
-  type: OPEN_INGREDIENT_INFO,
+export const openInfo = (ingredient) => ({
+  type: OPEN_INGREDIENT_DETAILS,
   payload: ingredient,
 });
 
-export const closeIngredientInfo = (ingredient) => ({
-  type: CLOSE_INGREDIENT_INFO,
+export const closeInfo = () => ({
+  type: CLOSE_INGREDIENT_DETAILS,
 });

@@ -8,32 +8,22 @@ import { TabBurgerIngredients } from "../burger-ingredients-tab/burger-ingredien
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  openIngredientInfo,
-  closeIngredientInfo,
-} from "../../services/actions/ingredient-details";
+import { openInfo, closeInfo } from "../../services/actions/ingredient-details";
 
 export function BurgerIngredients() {
   const dispatch = useDispatch();
-  const ingredients = useSelector((store) => store.ingredients);
-  const { showedIngredient } = useSelector((store) => store.IngredientDetails);
+  const { ingredients } = useSelector((store) => store.ingredients);
+  const { showedIngredient } = useSelector((store) => store.ingredientDetails);
 
-  const openPopup = (ingredient) => {
-    dispatch(openIngredientInfo(ingredient));
-  };
-
-  const closePopup = () => {
-    dispatch(closeIngredientInfo());
-  };
-
-  const refBuns = React.useRef();
-  const refSauces = React.useRef();
-  const refMain = React.useRef();
+  const refBuns = React.useRef(null);
+  const refSauces = React.useRef(null);
+  const refMain = React.useRef(null);
 
   const buns = React.useMemo(
     () => ingredients.filter((data) => data.type === "bun"),
     [ingredients]
   );
+
   const sauces = React.useMemo(
     () => ingredients.filter((data) => data.type === "sauce"),
     [ingredients]
@@ -54,8 +44,15 @@ export function BurgerIngredients() {
       case "main":
         refMain.current.scrollIntoView({ behavior: "smooth" });
         break;
-      // no default
     }
+  };
+
+  const openPopup = (ingredient) => {
+    dispatch(openInfo(ingredient));
+  };
+
+  const closePopup = () => {
+    dispatch(closeInfo());
   };
 
   return (
@@ -70,21 +67,23 @@ export function BurgerIngredients() {
             Булки
           </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {buns.map((item) => (
+            {buns.map((ingredient) => (
               <li
                 className={`${stylesIngredients.item}`}
-                key={item._id}
-                onClick={(event) => openPopup(item)}
+                key={ingredient._id}
+                onClick={() => openPopup(ingredient)}
               >
-                <img src={item.image} alt={item.name} />
+                <img src={ingredient.image} alt={ingredient.name} />
                 <div className={`${stylesIngredients.price}`}>
-                  <p className="text text_type_digits-default">{item.price}</p>
+                  <p className="text text_type_digits-default">
+                    {ingredient.price}
+                  </p>
                   <CurrencyIcon type="primary" />
                 </div>
                 <p
                   className={`${stylesIngredients.name} text text_type_main-default`}
                 >
-                  {item.name}
+                  {ingredient.name}
                 </p>
                 <Counter count={0} size="default" />
               </li>
@@ -96,21 +95,23 @@ export function BurgerIngredients() {
             Соусы
           </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {sauces.map((item) => (
+            {sauces.map((ingredient) => (
               <li
                 className={`${stylesIngredients.item}`}
-                key={item._id}
-                onClick={(event) => openPopup(item)}
+                key={ingredient._id}
+                onClick={() => openPopup(ingredient)}
               >
-                <img src={item.image} alt={item.name} />
+                <img src={ingredient.image} alt={ingredient.name} />
                 <div className={`${stylesIngredients.price}`}>
-                  <p className="text text_type_digits-default">{item.price}</p>
+                  <p className="text text_type_digits-default">
+                    {ingredient.price}
+                  </p>
                   <CurrencyIcon type="primary" />
                 </div>
                 <p
                   className={`${stylesIngredients.name} text text_type_main-default`}
                 >
-                  {item.name}
+                  {ingredient.name}
                 </p>
                 <Counter count={0} size="default" />
               </li>
@@ -122,21 +123,23 @@ export function BurgerIngredients() {
             Начинки
           </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {main.map((item) => (
+            {main.map((ingredient) => (
               <li
                 className={`${stylesIngredients.item}`}
-                key={item._id}
-                onClick={(event) => openPopup(item)}
+                key={ingredient._id}
+                onClick={() => openPopup(ingredient)}
               >
-                <img src={item.image} alt={item.name} />
+                <img src={ingredient.image} alt={ingredient.name} />
                 <div className={`${stylesIngredients.price}`}>
-                  <p className="text text_type_digits-default">{item.price}</p>
+                  <p className="text text_type_digits-default">
+                    {ingredient.price}
+                  </p>
                   <CurrencyIcon type="primary" />
                 </div>
                 <p
                   className={`${stylesIngredients.name} text text_type_main-default`}
                 >
-                  {item.name}
+                  {ingredient.name}
                 </p>
                 <Counter count={0} size="default" />
               </li>
@@ -144,9 +147,9 @@ export function BurgerIngredients() {
           </ul>
         </div>
       </div>
-      {showedIngredient && (
-        <Modal setOpenModal={closePopup}>
-          <IngredientDetails data={showedIngredient} />
+      {Boolean(showedIngredient) && (
+        <Modal closePopup={closePopup}>
+          <IngredientDetails ingredient={showedIngredient} />
         </Modal>
       )}
     </section>

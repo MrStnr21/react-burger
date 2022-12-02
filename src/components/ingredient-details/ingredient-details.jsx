@@ -1,7 +1,7 @@
 import StylesIngredientDetails from "./ingredient-details.module.css";
 import { BurgerPropTypes } from "../utils/PropTypes";
 
-export function IngredientDetails({ data }) {
+export function IngredientDetails({ ingredient }) {
   return (
     <>
       <p
@@ -11,13 +11,13 @@ export function IngredientDetails({ data }) {
       </p>
       <img
         className={`${StylesIngredientDetails.image}`}
-        src={data.image_large}
-        alt={data.name}
+        src={ingredient.image_large}
+        alt={ingredient.name}
       />
       <p
         className={`${StylesIngredientDetails.name} text text_type_main-medium`}
       >
-        {data.name}
+        {ingredient.name}
       </p>
       <ul className={`${StylesIngredientDetails.energy_value}`}>
         <li>
@@ -25,7 +25,7 @@ export function IngredientDetails({ data }) {
             Калории,ккал
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {data.calories}
+            {ingredient.calories}
           </p>
         </li>
         <li>
@@ -33,7 +33,7 @@ export function IngredientDetails({ data }) {
             Белки, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {data.proteins}
+            {ingredient.proteins}
           </p>
         </li>
         <li>
@@ -41,7 +41,7 @@ export function IngredientDetails({ data }) {
             Жиры, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {data.fat}
+            {ingredient.fat}
           </p>
         </li>
         <li>
@@ -49,7 +49,7 @@ export function IngredientDetails({ data }) {
             Углеводы, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {data.carbohydrates}
+            {ingredient.carbohydrates}
           </p>
         </li>
       </ul>
@@ -58,5 +58,5 @@ export function IngredientDetails({ data }) {
 }
 
 IngredientDetails.propTypes = {
-  data: BurgerPropTypes.isRequired,
+  ingredient: BurgerPropTypes.isRequired,
 };

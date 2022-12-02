@@ -22,7 +22,7 @@ export function App() {
       {!ingredientsRequest && !ingredientsFailed && (
         <main className={`${stylesApp.main}`}>
           <BurgerIngredients />
-          {/* <BurgerConstructor /> */}
+          <BurgerConstructor />
         </main>
       )}
     </div>

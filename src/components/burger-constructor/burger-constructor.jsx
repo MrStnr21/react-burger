@@ -8,23 +8,46 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-import { BurgerContext } from "../../services/burger-context";
 import { makeOrderApi } from "../utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import { makeOrder, closeOrder } from "../../services/actions/order";
 
 export function BurgerConstructor() {
-  const { ingredients } = React.useContext(BurgerContext);
-  const [openModal, setOpenModal] = React.useState(false);
+  const dispatch = useDispatch();
+  const { selectedIngredient, selectedBun } = useSelector(
+    (store) => store.burgerConstructor
+  );
+  const { orderDetailOpen } = useSelector((store) => store.order);
+
   const [finalSum, setFinalSum] = React.useState(0);
-  const [orderNum, setOrderNum] = React.useState();
+
+  const orderListIngredients = React.useMemo(
+    () => ({
+      ingredients: [
+        selectedBun?.info._id,
+        ...selectedIngredient?.map((ingredient) => ingredient.info._id),
+        selectedBun?.info._id,
+      ],
+    }),
+    [selectedIngredient, selectedBun]
+  );
+
+  const makeSomeOrder = () => {
+    dispatch(makeOrder(orderListIngredients));
+  };
+
+  const closeOrderDetails = () => {
+    dispatch(closeOrder());
+  };
 
   const buns = React.useMemo(
-    () => ingredients.find((item) => item.type === "bun"),
-    [ingredients]
+    () => selectedBun.find((item) => item.type === "bun"),
+    [selectedBun]
   );
 
   const otherIngs = React.useMemo(
-    () => ingredients.filter((item) => item.type !== "bun"),
-    [ingredients]
+    () => selectedIngredient.filter((item) => item.type !== "bun"),
+    [selectedIngredient]
   );
 
   React.useEffect(() => {
@@ -36,67 +59,50 @@ export function BurgerConstructor() {
     setFinalSum(price);
   }, [buns, otherIngs]);
 
-  const handleClickModal = () => {
-    setOpenModal(true);
-  };
-
-  const handleClickOrder = () => {
-    makeOrderApi([
-      buns._id,
-      ...otherIngs.map((ingredient) => ingredient._id),
-      buns._id,
-    ])
-      .then((data) => {
-        if (data.success) {
-          setOrderNum(data);
-          handleClickModal(true);
-        } else {
-          return Promise.reject(data);
-        }
-      })
-      .catch((err) => console.log(`Ошибка ${err}, запрос не выполнен`));
-  };
-
   return (
     <section className={`${stylesConsctructor.section}`}>
       <div className={`${stylesConsctructor.items}`}>
         <ul className={`${stylesConsctructor.list}`}>
-          <li
-            className={`${stylesConsctructor.type} ${stylesConsctructor.bun}`}
-          >
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={`${buns.name} (верх)`}
-              price={buns.price}
-              thumbnail={buns.image_mobile}
-            />
-          </li>
+          {selectedBun && (
+            <li
+              className={`${stylesConsctructor.type} ${stylesConsctructor.bun}`}
+            >
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={`${selectedBun.name} (верх)`}
+                price={selectedBun.price}
+                thumbnail={selectedBun.image_mobile}
+              />
+            </li>
+          )}
           <ul
             className={`${stylesConsctructor.list} ${stylesConsctructor.topping}`}
           >
-            {otherIngs.map((item, index) => (
+            {selectedIngredient.map((ingredient, index) => (
               <li className={`${stylesConsctructor.type}`} key={index}>
                 <DragIcon type="primary" />
                 <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image_mobile}
+                  text={ingredient.name}
+                  price={ingredient.price}
+                  thumbnail={ingredient.image_mobile}
                 />
               </li>
             ))}
           </ul>
-          <li
-            className={`${stylesConsctructor.type} ${stylesConsctructor.bun}`}
-          >
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={`${buns.name} (низ)`}
-              price={buns.price}
-              thumbnail={buns.image_mobile}
-            />
-          </li>
+          {selectedBun && (
+            <li
+              className={`${stylesConsctructor.type} ${stylesConsctructor.bun}`}
+            >
+              <ConstructorElement
+                type="bottom"
+                isLocked={true}
+                text={`${selectedBun.name} (низ)`}
+                price={selectedBun.price}
+                thumbnail={selectedBun.image_mobile}
+              />
+            </li>
+          )}
         </ul>
       </div>
       <div className={`${stylesConsctructor.total}`}>
@@ -108,14 +114,14 @@ export function BurgerConstructor() {
           type="primary"
           size="large"
           htmlType="button"
-          onClick={handleClickOrder}
+          onClick={makeSomeOrder}
         >
           Оформить заказ
         </Button>
       </div>
-      {openModal && (
-        <Modal setOpenModal={setOpenModal}>
-          <OrderDetails orderNum={orderNum.order.number} />
+      {orderDetailOpen && (
+        <Modal closePopup={closeOrderDetails}>
+          <OrderDetails />
         </Modal>
       )}
     </section>

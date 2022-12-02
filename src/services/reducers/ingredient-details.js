@@ -1,6 +1,6 @@
 import {
-  CLOSE_INGREDIENT_INFO,
-  OPEN_INGREDIENT_INFO,
+  CLOSE_INGREDIENT_DETAILS,
+  OPEN_INGREDIENT_DETAILS,
 } from "../actions/ingredient-details";
 
 const initialState = {
@@ -9,13 +9,13 @@ const initialState = {
 
 export const ingredientDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case OPEN_INGREDIENT_INFO:
+    case OPEN_INGREDIENT_DETAILS:
       return {
         ...state,
         showedIngredient: action.payload,
       };
 
-    case CLOSE_INGREDIENT_INFO:
+    case CLOSE_INGREDIENT_DETAILS:
       return initialState;
 
     default:

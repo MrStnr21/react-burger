@@ -5,11 +5,7 @@ import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import stylesModal from "./modal.module.css";
 import PropTypes from "prop-types";
 
-export function Modal({ setOpenModal, children }) {
-  function closePopup() {
-    setOpenModal(false);
-  }
-
+export function Modal({ closePopup, children }) {
   React.useEffect(() => {
     const closelByEscape = (e) => {
       if (e.key === "Escape") {
@@ -36,5 +32,5 @@ export function Modal({ setOpenModal, children }) {
 }
 Modal.propTypes = {
   children: PropTypes.object.isRequired,
-  setOpenModal: PropTypes.func.isRequired,
+  closePopup: PropTypes.func.isRequired,
 };
