@@ -16,8 +16,6 @@ export function makeOrderApi(ingredientsId) {
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
-    body: JSON.stringify({
-      ingredients: ingredientsId,
-    }),
+    body: JSON.stringify(ingredientsId),
   });
 }

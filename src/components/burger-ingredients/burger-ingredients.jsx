@@ -139,7 +139,7 @@ export function BurgerIngredients() {
           </ul>
         </div>
       </div>
-      {Boolean(showedIngredient) && (
+      {showedIngredient && (
         <Modal closePopup={closePopup}>
           <IngredientDetails ingredient={showedIngredient} />
         </Modal>

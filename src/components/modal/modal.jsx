@@ -32,6 +32,6 @@ export function Modal({ closePopup, children }) {
   );
 }
 Modal.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired,
   closePopup: PropTypes.func.isRequired,
 };

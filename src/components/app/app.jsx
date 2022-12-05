@@ -25,7 +25,7 @@ export function App() {
         <main className={`${stylesApp.main}`}>
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
-            {/* <BurgerConstructor /> */}
+            <BurgerConstructor />
           </DndProvider>
         </main>
       )}
