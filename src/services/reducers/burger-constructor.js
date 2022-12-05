@@ -2,6 +2,7 @@ import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   RESET_CONSTRUCTOR,
+  CHANGE_INGREDIENT,
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -38,6 +39,12 @@ export const burgerConstructorReducer = (state = initialState, action) => {
 
     case RESET_CONSTRUCTOR:
       return initialState;
+
+    case CHANGE_INGREDIENT:
+      return {
+        ...state,
+        selectedIngredient: action.payload,
+      };
 
     default:
       return state;

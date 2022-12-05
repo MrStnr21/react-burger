@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import stylesIngredients from "./burger-ingredients.module.css";
-import {
-  Counter,
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import { TabBurgerIngredients } from "../burger-ingredients-tab/burger-ingredients-tab";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { IngredientItem } from "../ingredient-item/ingredient-item";
 import { useDispatch, useSelector } from "react-redux";
 import { openInfo, closeInfo } from "../../services/actions/ingredient-details";
 
@@ -105,25 +102,11 @@ export function BurgerIngredients() {
           </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
             {buns.map((ingredient) => (
-              <li
-                className={`${stylesIngredients.item}`}
+              <IngredientItem
+                ingredient={ingredient}
                 key={ingredient._id}
-                onClick={() => openPopup(ingredient)}
-              >
-                <img src={ingredient.image} alt={ingredient.name} />
-                <div className={`${stylesIngredients.price}`}>
-                  <p className="text text_type_digits-default">
-                    {ingredient.price}
-                  </p>
-                  <CurrencyIcon type="primary" />
-                </div>
-                <p
-                  className={`${stylesIngredients.name} text text_type_main-default`}
-                >
-                  {ingredient.name}
-                </p>
-                <Counter count={0} size="default" />
-              </li>
+                onIngredientClick={() => openPopup(ingredient)}
+              />
             ))}
           </ul>
         </div>
@@ -133,25 +116,11 @@ export function BurgerIngredients() {
           </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
             {sauces.map((ingredient) => (
-              <li
-                className={`${stylesIngredients.item}`}
+              <IngredientItem
+                ingredient={ingredient}
                 key={ingredient._id}
-                onClick={() => openPopup(ingredient)}
-              >
-                <img src={ingredient.image} alt={ingredient.name} />
-                <div className={`${stylesIngredients.price}`}>
-                  <p className="text text_type_digits-default">
-                    {ingredient.price}
-                  </p>
-                  <CurrencyIcon type="primary" />
-                </div>
-                <p
-                  className={`${stylesIngredients.name} text text_type_main-default`}
-                >
-                  {ingredient.name}
-                </p>
-                <Counter count={0} size="default" />
-              </li>
+                onIngredientClick={() => openPopup(ingredient)}
+              />
             ))}
           </ul>
         </div>
@@ -161,25 +130,11 @@ export function BurgerIngredients() {
           </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
             {main.map((ingredient) => (
-              <li
-                className={`${stylesIngredients.item}`}
+              <IngredientItem
+                ingredient={ingredient}
                 key={ingredient._id}
-                onClick={() => openPopup(ingredient)}
-              >
-                <img src={ingredient.image} alt={ingredient.name} />
-                <div className={`${stylesIngredients.price}`}>
-                  <p className="text text_type_digits-default">
-                    {ingredient.price}
-                  </p>
-                  <CurrencyIcon type="primary" />
-                </div>
-                <p
-                  className={`${stylesIngredients.name} text text_type_main-default`}
-                >
-                  {ingredient.name}
-                </p>
-                <Counter count={0} size="default" />
-              </li>
+                onIngredientClick={() => openPopup(ingredient)}
+              />
             ))}
           </ul>
         </div>
