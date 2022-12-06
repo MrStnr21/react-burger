@@ -1,12 +1,15 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import stylesApp from "./app.module.css";
+
 import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor";
-import { useDispatch, useSelector } from "react-redux";
+
 import { getIngredients } from "../../services/actions/ingredients";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 
 export function App() {
   const dispatch = useDispatch();

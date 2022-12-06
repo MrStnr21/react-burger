@@ -1,21 +1,24 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+
 import stylesConsctructor from "./burger-constructor.module.css";
+
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/modal";
-import { OrderDetails } from "../order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
-import { makeOrder, closeOrder } from "../../services/actions/order";
 import { ConstructorItem } from "../constructor-item/constructor-item";
+import { OrderDetails } from "../order-details/order-details";
+
+import { makeOrder, closeOrder } from "../../services/actions/order";
 import {
   removeIngredient,
   addIngredient,
   resetConstructor,
 } from "../../services/actions/burger-constructor";
-import { useDrop } from "react-dnd";
 
 export function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -77,6 +80,7 @@ export function BurgerConstructor() {
           handleRemoveIngredient={handleRemoveIngredient}
         />
       )),
+    // eslint-disable-next-line
     [selectedIngredient]
   );
 
@@ -101,7 +105,16 @@ export function BurgerConstructor() {
                 thumbnail={selectedBun.info.image_mobile}
               />
             </li>
-          ) : null}
+          ) : (
+            <h2 className={`${stylesConsctructor.choseIngredient}`}>
+              Выберите{" "}
+              <span
+                className={`${stylesConsctructor.choseIngredientFlickerOne}`}
+              >
+                Булку
+              </span>
+            </h2>
+          )}
 
           {selectedIngredient.length ? (
             <ul
@@ -109,7 +122,16 @@ export function BurgerConstructor() {
             >
               {renderIngredients}
             </ul>
-          ) : null}
+          ) : (
+            <h2 className={`${stylesConsctructor.choseIngredient}`}>
+              Выберите{" "}
+              <span
+                className={`${stylesConsctructor.choseIngredientFlickerTwo}`}
+              >
+                Начинку
+              </span>
+            </h2>
+          )}
 
           {selectedBun ? (
             <li

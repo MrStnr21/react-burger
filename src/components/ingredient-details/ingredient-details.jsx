@@ -1,4 +1,5 @@
 import StylesIngredientDetails from "./ingredient-details.module.css";
+
 import { BurgerPropTypes } from "../utils/PropTypes";
 
 export function IngredientDetails({ ingredient }) {

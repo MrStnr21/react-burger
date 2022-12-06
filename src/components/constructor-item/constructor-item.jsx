@@ -1,20 +1,20 @@
-import PropTypes from "prop-types";
 import { useRef } from "react";
-import { useDrag, useDrop } from "react-dnd";
 import { useSelector, useDispatch } from "react-redux";
+import { useDrag, useDrop } from "react-dnd";
+
+import stylesConstructorItem from "./constructor-item.module.css";
+
 import { BurgerPropTypes } from "../utils/PropTypes";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { changeIngredient } from "../../services/actions/burger-constructor";
-import stylesConstructorItem from "./constructor-item.module.css";
 
-export const ConstructorItem = ({
-  ingredient,
-  index,
-  handleRemoveIngredient,
-}) => {
+import { changeIngredient } from "../../services/actions/burger-constructor";
+
+import PropTypes from "prop-types";
+
+export function ConstructorItem({ ingredient, index, handleRemoveIngredient }) {
   const dispatch = useDispatch();
   const { selectedIngredient } = useSelector(
     (store) => store.burgerConstructor
@@ -93,7 +93,7 @@ export const ConstructorItem = ({
       />
     </li>
   );
-};
+}
 
 ConstructorItem.propTypes = {
   ingredient: PropTypes.shape({

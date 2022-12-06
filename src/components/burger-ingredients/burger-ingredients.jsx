@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import stylesIngredients from "./burger-ingredients.module.css";
+
 import { TabBurgerIngredients } from "../burger-ingredients-tab/burger-ingredients-tab";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { IngredientItem } from "../ingredient-item/ingredient-item";
-import { useDispatch, useSelector } from "react-redux";
+
 import { openInfo, closeInfo } from "../../services/actions/ingredient-details";
 
 export function BurgerIngredients() {

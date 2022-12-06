@@ -1,6 +1,8 @@
-import logoDone from "../../images/done.svg";
-import stylesOrderDetails from "./order-details.module.css";
 import { useSelector } from "react-redux";
+
+import stylesOrderDetails from "./order-details.module.css";
+
+import logoDone from "../../images/done.svg";
 
 export function OrderDetails() {
   const { orderNumber } = useSelector((store) => store.order);

@@ -1,14 +1,17 @@
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { useDrag } from "react-dnd";
+
+import stylesIngredientItem from "./ingredient-item.module.css";
+
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useMemo } from "react";
-import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux";
-import stylesIngredientItem from "./ingredient-item.module.css";
+
 import PropTypes from "prop-types";
 
-export const IngredientItem = ({ ingredient, onIngredientClick }) => {
+export function IngredientItem({ ingredient, onIngredientClick }) {
   const { selectedIngredient, selectedBun } = useSelector(
     (store) => store.burgerConstructor
   );
@@ -21,15 +24,19 @@ export const IngredientItem = ({ ingredient, onIngredientClick }) => {
     }),
   });
 
-  const counterIngredient = useMemo(() => {
-    if (ingredient.type !== "bun") {
-      const sameIngredients = selectedIngredient?.filter(
-        (topping) => topping.info._id === ingredient._id
-      );
-      return sameIngredients?.length;
-    }
-    return selectedBun?.info._id === ingredient._id ? 2 : 0;
-  }, [selectedIngredient, selectedBun]);
+  const counterIngredient = useMemo(
+    () => {
+      if (ingredient.type !== "bun") {
+        const sameIngredients = selectedIngredient?.filter(
+          (topping) => topping.info._id === ingredient._id
+        );
+        return sameIngredients?.length;
+      }
+      return selectedBun?.info._id === ingredient._id ? 2 : 0;
+    },
+    // eslint-disable-next-line
+    [selectedIngredient, selectedBun]
+  );
 
   return (
     <li
@@ -53,7 +60,7 @@ export const IngredientItem = ({ ingredient, onIngredientClick }) => {
       )}
     </li>
   );
-};
+}
 
 IngredientItem.propTypes = {
   ingredient: PropTypes.object.isRequired,

@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import ReactDOM from "react-dom";
+
+import stylesModal from "./modal.module.css";
+
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
-import stylesModal from "./modal.module.css";
+
 import PropTypes from "prop-types";
 
 export function Modal({ closePopup, children }) {

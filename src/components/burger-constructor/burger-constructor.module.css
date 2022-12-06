@@ -68,6 +68,58 @@
   column-gap: 9px;
 }
 
+.choseIngredient {
+  margin: 25px auto;
+  padding: 0;
+  font-size: 34px;
+  color: #fff;
+  text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff;
+}
+
+.choseIngredientFlickerOne {
+  animation: flickerOne 1.5s infinite alternate;
+}
+
+@keyframes flickerOne {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff;
+  }
+
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
+.choseIngredientFlickerTwo {
+  animation: flickerTwo 1.5s infinite alternate;
+}
+
+@keyframes flickerTwo {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff;
+  }
+
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
 .dropHover {
   box-shadow: 0px 0px 16px 8px rgb(51 51 255 / 25%),
     0px 0px 8px 8px rgb(51 51 255 / 25%);

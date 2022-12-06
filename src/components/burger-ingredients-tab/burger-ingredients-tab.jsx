@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState, useEffect } from "react";
+
 import stylesTab from "./burger-ingredients-tab.module.css";
+
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+
 import PropTypes from "prop-types";
 
 export function TabBurgerIngredients(props) {
