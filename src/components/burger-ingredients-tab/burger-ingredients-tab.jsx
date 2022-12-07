@@ -4,6 +4,8 @@ import stylesTab from "./burger-ingredients-tab.module.css";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { TabsIngredients } from "../utils/data";
+
 import PropTypes from "prop-types";
 
 export function TabBurgerIngredients(props) {
@@ -21,22 +23,24 @@ export function TabBurgerIngredients(props) {
   return (
     <div ref={props.refTab} className={`${stylesTab.tab}`}>
       <Tab
-        value="buns"
-        active={current === "buns" || props.currentIndexTab === 0}
+        value="bun"
+        active={current === TabsIngredients.BUN || props.currentIndexTab === 0}
         onClick={onClickHandlerTab}
       >
         Булки
       </Tab>
       <Tab
-        value="sauces"
-        active={current === "sauces" || props.currentIndexTab === 1}
+        value="sauce"
+        active={
+          current === TabsIngredients.SAUCE || props.currentIndexTab === 1
+        }
         onClick={onClickHandlerTab}
       >
         Соусы
-      </Tab>
+      </Tab>  
       <Tab
         value="main"
-        active={current === "main" || props.currentIndexTab === 2}
+        active={current === TabsIngredients.MAIN || props.currentIndexTab === 2}
         onClick={onClickHandlerTab}
       >
         Начинки

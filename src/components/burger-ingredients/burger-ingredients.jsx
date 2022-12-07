@@ -8,6 +8,8 @@ import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { IngredientItem } from "../ingredient-item/ingredient-item";
 
+import { TabsIngredients } from "../utils/data";
+
 import { openInfo, closeInfo } from "../../services/actions/ingredient-details";
 
 export function BurgerIngredients() {
@@ -31,28 +33,28 @@ export function BurgerIngredients() {
   const [currentIndexTab, setCurrentIndexTab] = useState(0);
 
   const buns = useMemo(
-    () => ingredients.filter((data) => data.type === "bun"),
+    () => ingredients.filter((data) => data.type === TabsIngredients.BUN),
     [ingredients]
   );
 
   const sauces = useMemo(
-    () => ingredients.filter((data) => data.type === "sauce"),
+    () => ingredients.filter((data) => data.type === TabsIngredients.SAUCE),
     [ingredients]
   );
   const main = useMemo(
-    () => ingredients.filter((data) => data.type === "main"),
+    () => ingredients.filter((data) => data.type === TabsIngredients.MAIN),
     [ingredients]
   );
 
   const handleClickTab = (value) => {
     switch (value) {
-      case "buns":
+      case TabsIngredients.BUN:
         refBuns.current.scrollIntoView({ behavior: "smooth" });
         break;
-      case "sauces":
+      case TabsIngredients.SAUCE:
         refSauces.current.scrollIntoView({ behavior: "smooth" });
         break;
-      case "main":
+      case TabsIngredients.MAIN:
         refMain.current.scrollIntoView({ behavior: "smooth" });
         break;
       // no default

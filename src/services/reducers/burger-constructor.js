@@ -5,6 +5,8 @@ import {
   CHANGE_INGREDIENT,
 } from "../actions/burger-constructor";
 
+import { TabsIngredients } from "../../components/utils/data";
+
 const initialState = {
   selectedIngredient: [],
   selectedBun: null,
@@ -13,7 +15,7 @@ const initialState = {
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT:
-      return action.payload.ingredient.type !== "bun"
+      return action.payload.ingredient.type !== TabsIngredients.BUN
         ? {
             ...state,
             selectedIngredient: [

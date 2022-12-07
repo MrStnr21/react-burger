@@ -4,6 +4,8 @@ import { useDrag } from "react-dnd";
 
 import stylesIngredientItem from "./ingredient-item.module.css";
 
+import { TabsIngredients } from "../utils/data";
+
 import {
   CurrencyIcon,
   Counter,
@@ -26,7 +28,7 @@ export function IngredientItem({ ingredient, onIngredientClick }) {
 
   const counterIngredient = useMemo(
     () => {
-      if (ingredient.type !== "bun") {
+      if (ingredient.type !== TabsIngredients.BUN) {
         const sameIngredients = selectedIngredient?.filter(
           (topping) => topping.info._id === ingredient._id
         );

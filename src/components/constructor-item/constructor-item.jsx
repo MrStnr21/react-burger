@@ -98,7 +98,7 @@ export function ConstructorItem({ ingredient, index, handleRemoveIngredient }) {
 ConstructorItem.propTypes = {
   ingredient: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    info: BurgerPropTypes,
+    info: BurgerPropTypes.isRequired,
   }),
   index: PropTypes.number.isRequired,
   handleRemoveIngredient: PropTypes.func.isRequired,
