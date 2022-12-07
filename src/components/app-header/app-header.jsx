@@ -14,7 +14,7 @@ export function AppHeader() {
         <nav className={`${stylesAppHeader.navigation}`}>
           <ul className={`${stylesAppHeader.menu}`}>
             <li>
-              <a className={`${stylesAppHeader.link}`} href="#">
+              <a className={`${stylesAppHeader.link}`} href="##">
                 <BurgerIcon type="primary" />
                 <p className={`text text_type_main-default`}>Конструктор</p>
               </a>
