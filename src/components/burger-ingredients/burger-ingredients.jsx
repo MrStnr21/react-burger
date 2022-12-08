@@ -1,55 +1,90 @@
-import React from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import stylesIngredients from "./burger-ingredients.module.css";
-import {
-  Counter,
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+
 import { TabBurgerIngredients } from "../burger-ingredients-tab/burger-ingredients-tab";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { BurgerContext } from "../../services/burger-context";
+import { IngredientItem } from "../ingredient-item/ingredient-item";
+
+import { TabsIngredients } from "../utils/data";
+
+import { openInfo, closeInfo } from "../../services/actions/ingredient-details";
 
 export function BurgerIngredients() {
-  const [openModal, setModal] = React.useState(false);
-  const [ingredient, setIngredient] = React.useState();
+  const dispatch = useDispatch();
+  const { ingredients } = useSelector((store) => store.ingredients);
+  const { showedIngredient } = useSelector((store) => store.ingredientDetails);
 
-  const { ingredients } = React.useContext(BurgerContext);
+  const [startScroll, setStartScroll] = useState();
 
-  const refBuns = React.useRef();
-  const refSauces = React.useRef();
-  const refMain = React.useRef();
+  useEffect(() => {
+    if (refTab) {
+      setStartScroll(refTab.current.getBoundingClientRect().bottom);
+    }
+  }, [startScroll]);
 
-  const handleClickModal = (event) => {
-    setModal(true);
-    setIngredient(event);
-  };
+  const refTab = useRef();
+  const refBuns = useRef();
+  const refSauces = useRef();
+  const refMain = useRef();
 
-  const buns = React.useMemo(
-    () => ingredients.filter((data) => data.type === "bun"),
+  const [currentIndexTab, setCurrentIndexTab] = useState(0);
+
+  const buns = useMemo(
+    () => ingredients.filter((data) => data.type === TabsIngredients.BUN),
     [ingredients]
   );
-  const sauces = React.useMemo(
-    () => ingredients.filter((data) => data.type === "sauce"),
+
+  const sauces = useMemo(
+    () => ingredients.filter((data) => data.type === TabsIngredients.SAUCE),
     [ingredients]
   );
-  const main = React.useMemo(
-    () => ingredients.filter((data) => data.type === "main"),
+  const main = useMemo(
+    () => ingredients.filter((data) => data.type === TabsIngredients.MAIN),
     [ingredients]
   );
 
   const handleClickTab = (value) => {
     switch (value) {
-      case "buns":
+      case TabsIngredients.BUN:
         refBuns.current.scrollIntoView({ behavior: "smooth" });
         break;
-      case "sauces":
+      case TabsIngredients.SAUCE:
         refSauces.current.scrollIntoView({ behavior: "smooth" });
         break;
-      case "main":
+      case TabsIngredients.MAIN:
         refMain.current.scrollIntoView({ behavior: "smooth" });
         break;
       // no default
     }
+  };
+
+  const handleTabScroll = () => {
+    const buns = Math.abs(
+      startScroll - refBuns.current.getBoundingClientRect().top
+    );
+    const sauces = Math.abs(
+      startScroll - refSauces.current.getBoundingClientRect().top
+    );
+    const main = Math.abs(
+      startScroll - refMain.current.getBoundingClientRect().top
+    );
+
+    const arr = [buns, sauces, main];
+
+    const activeTab = Math.min(...arr);
+    const index = arr.findIndex((el) => el === activeTab);
+    setCurrentIndexTab(index);
+  };
+
+  const openPopup = (ingredient) => {
+    dispatch(openInfo(ingredient));
+  };
+
+  const closePopup = () => {
+    dispatch(closeInfo());
   };
 
   return (
@@ -57,31 +92,26 @@ export function BurgerIngredients() {
       <h2 className={`${stylesIngredients.title} text text_type_main-large`}>
         Соберите бургер
       </h2>
-      <TabBurgerIngredients onClickTab={handleClickTab} />
-      <div className={`${stylesIngredients.container}`}>
+      <TabBurgerIngredients
+        refTab={refTab}
+        onClickTab={handleClickTab}
+        currentIndexTab={currentIndexTab}
+      />
+      <div
+        onScroll={handleTabScroll}
+        className={`${stylesIngredients.container}`}
+      >
         <div>
           <h2 ref={refBuns} className={`text text_type_main-medium`}>
             Булки
           </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {buns.map((item) => (
-              <li
-                className={`${stylesIngredients.item}`}
-                key={item._id}
-                onClick={(event) => handleClickModal(item)}
-              >
-                <img src={item.image} alt={item.name} />
-                <div className={`${stylesIngredients.price}`}>
-                  <p className="text text_type_digits-default">{item.price}</p>
-                  <CurrencyIcon type="primary" />
-                </div>
-                <p
-                  className={`${stylesIngredients.name} text text_type_main-default`}
-                >
-                  {item.name}
-                </p>
-                <Counter count={0} size="default" />
-              </li>
+            {buns.map((ingredient) => (
+              <IngredientItem
+                ingredient={ingredient}
+                key={ingredient._id}
+                onIngredientClick={() => openPopup(ingredient)}
+              />
             ))}
           </ul>
         </div>
@@ -90,24 +120,12 @@ export function BurgerIngredients() {
             Соусы
           </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {sauces.map((item) => (
-              <li
-                className={`${stylesIngredients.item}`}
-                key={item._id}
-                onClick={(event) => handleClickModal(item)}
-              >
-                <img src={item.image} alt={item.name} />
-                <div className={`${stylesIngredients.price}`}>
-                  <p className="text text_type_digits-default">{item.price}</p>
-                  <CurrencyIcon type="primary" />
-                </div>
-                <p
-                  className={`${stylesIngredients.name} text text_type_main-default`}
-                >
-                  {item.name}
-                </p>
-                <Counter count={0} size="default" />
-              </li>
+            {sauces.map((ingredient) => (
+              <IngredientItem
+                ingredient={ingredient}
+                key={ingredient._id}
+                onIngredientClick={() => openPopup(ingredient)}
+              />
             ))}
           </ul>
         </div>
@@ -116,31 +134,19 @@ export function BurgerIngredients() {
             Начинки
           </h2>
           <ul className={`${stylesIngredients.ingredients}`}>
-            {main.map((item) => (
-              <li
-                className={`${stylesIngredients.item}`}
-                key={item._id}
-                onClick={(event) => handleClickModal(item)}
-              >
-                <img src={item.image} alt={item.name} />
-                <div className={`${stylesIngredients.price}`}>
-                  <p className="text text_type_digits-default">{item.price}</p>
-                  <CurrencyIcon type="primary" />
-                </div>
-                <p
-                  className={`${stylesIngredients.name} text text_type_main-default`}
-                >
-                  {item.name}
-                </p>
-                <Counter count={0} size="default" />
-              </li>
+            {main.map((ingredient) => (
+              <IngredientItem
+                ingredient={ingredient}
+                key={ingredient._id}
+                onIngredientClick={() => openPopup(ingredient)}
+              />
             ))}
           </ul>
         </div>
       </div>
-      {openModal && ingredient && (
-        <Modal setOpenModal={setModal}>
-          <IngredientDetails data={ingredient} />
+      {showedIngredient && (
+        <Modal closePopup={closePopup}>
+          <IngredientDetails ingredient={showedIngredient} />
         </Modal>
       )}
     </section>

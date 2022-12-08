@@ -1,16 +1,15 @@
-import React from "react";
+import { useEffect } from "react";
 import ReactDOM from "react-dom";
+
+import stylesModal from "./modal.module.css";
+
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
-import stylesModal from "./modal.module.css";
+
 import PropTypes from "prop-types";
 
-export function Modal({ setOpenModal, children }) {
-  function closePopup() {
-    setOpenModal(false);
-  }
-
-  React.useEffect(() => {
+export function Modal({ closePopup, children }) {
+  useEffect(() => {
     const closelByEscape = (e) => {
       if (e.key === "Escape") {
         closePopup();
@@ -19,6 +18,7 @@ export function Modal({ setOpenModal, children }) {
     window.addEventListener("keydown", closelByEscape);
 
     return () => window.removeEventListener("keydown", closelByEscape);
+    // eslint-disable-next-line
   }, []);
 
   return ReactDOM.createPortal(
@@ -35,6 +35,6 @@ export function Modal({ setOpenModal, children }) {
   );
 }
 Modal.propTypes = {
-  children: PropTypes.object.isRequired,
-  setOpenModal: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+  closePopup: PropTypes.func.isRequired,
 };

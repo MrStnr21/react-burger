@@ -1,121 +1,171 @@
-import React from "react";
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+
 import stylesConsctructor from "./burger-constructor.module.css";
+
 import {
   ConstructorElement,
-  DragIcon,
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../modal/modal";
+import { ConstructorItem } from "../constructor-item/constructor-item";
 import { OrderDetails } from "../order-details/order-details";
-import { BurgerContext } from "../../services/burger-context";
-import { makeOrder } from "../utils/api";
+
+import { makeOrder, closeOrder } from "../../services/actions/order";
+import {
+  removeIngredient,
+  addIngredient,
+  resetConstructor,
+} from "../../services/actions/burger-constructor";
 
 export function BurgerConstructor() {
-  const { ingredients } = React.useContext(BurgerContext);
-  const [openModal, setOpenModal] = React.useState(false);
-  const [finalSum, setFinalSum] = React.useState(0);
-  const [orderNum, setOrderNum] = React.useState();
+  const dispatch = useDispatch();
+  const { selectedIngredient, selectedBun } = useSelector(
+    (store) => store.burgerConstructor
+  );
+  const { isOrderDetailsOpened } = useSelector((store) => store.order);
 
-  const buns = React.useMemo(
-    () => ingredients.find((item) => item.type === "bun"),
-    [ingredients]
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "ingredients",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(ingredient) {
+      dispatch(addIngredient(ingredient));
+    },
+  });
+
+  const orderListIngredients = useMemo(
+    () => ({
+      ingredients: [
+        selectedBun?.info._id,
+        ...selectedIngredient?.map((ingredient) => ingredient.info._id),
+        selectedBun?.info._id,
+      ],
+    }),
+    [selectedIngredient, selectedBun]
   );
 
-  const otherIngs = React.useMemo(
-    () => ingredients.filter((item) => item.type !== "bun"),
-    [ingredients]
-  );
+  const makeSomeOrder = () => {
+    dispatch(makeOrder(orderListIngredients));
+  };
 
-  React.useEffect(() => {
-    const counterPrice = otherIngs.reduce(
-      (sum, ingredient) => (sum += ingredient.price),
-      0
+  const closeOrderDetails = () => {
+    dispatch(closeOrder());
+    dispatch(resetConstructor());
+  };
+
+  const counterPrice = useMemo(() => {
+    const bunPrice = selectedBun ? selectedBun.info.price * 2 : 0;
+    const totalPrice = selectedIngredient.reduce(
+      (sum, ingredient) => (sum += ingredient.info.price),
+      bunPrice
     );
-    const price = counterPrice + buns.price * 2;
-    setFinalSum(price);
-  }, [buns, otherIngs]);
+    return totalPrice;
+  }, [selectedIngredient, selectedBun]);
 
-  const handleClickModal = () => {
-    setOpenModal(true);
+  const handleRemoveIngredient = (ingredient) => {
+    dispatch(removeIngredient(ingredient));
   };
 
-  const handleClickOrder = () => {
-    makeOrder([
-      buns._id,
-      ...otherIngs.map((ingredient) => ingredient._id),
-      buns._id,
-    ])
-      .then((data) => {
-        if (data.success) {
-          setOrderNum(data);
-          handleClickModal(true);
-        } else {
-          return Promise.reject(data);
-        }
-      })
-      .catch((err) => console.log(`Ошибка ${err}, запрос не выполнен`));
-  };
+  const renderIngredients = useMemo(
+    () =>
+      selectedIngredient.map((ingredient, index) => (
+        <ConstructorItem
+          ingredient={ingredient}
+          key={ingredient.id}
+          index={index}
+          handleRemoveIngredient={handleRemoveIngredient}
+        />
+      )),
+    // eslint-disable-next-line
+    [selectedIngredient]
+  );
 
   return (
-    <section className={`${stylesConsctructor.section}`}>
+    <section
+      className={`${stylesConsctructor.section} ${
+        isHover ? stylesConsctructor.dropHover : ""
+      }`}
+      ref={dropTarget}
+    >
       <div className={`${stylesConsctructor.items}`}>
         <ul className={`${stylesConsctructor.list}`}>
-          <li
-            className={`${stylesConsctructor.type} ${stylesConsctructor.bun}`}
-          >
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={`${buns.name} (верх)`}
-              price={buns.price}
-              thumbnail={buns.image_mobile}
-            />
-          </li>
-          <ul
-            className={`${stylesConsctructor.list} ${stylesConsctructor.topping}`}
-          >
-            {otherIngs.map((item, index) => (
-              <li className={`${stylesConsctructor.type}`} key={index}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image_mobile}
-                />
-              </li>
-            ))}
-          </ul>
-          <li
-            className={`${stylesConsctructor.type} ${stylesConsctructor.bun}`}
-          >
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={`${buns.name} (низ)`}
-              price={buns.price}
-              thumbnail={buns.image_mobile}
-            />
-          </li>
+          {selectedBun ? (
+            <li
+              className={`${stylesConsctructor.type} ${stylesConsctructor.bun}`}
+            >
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={`${selectedBun.info.name} (верх)`}
+                price={selectedBun.info.price}
+                thumbnail={selectedBun.info.image_mobile}
+              />
+            </li>
+          ) : (
+            <h2 className={`${stylesConsctructor.choseIngredient}`}>
+              Выберите{" "}
+              <span
+                className={`${stylesConsctructor.choseIngredientFlickerOne}`}
+              >
+                Булку
+              </span>
+            </h2>
+          )}
+
+          {selectedIngredient.length ? (
+            <ul
+              className={`${stylesConsctructor.list} ${stylesConsctructor.topping}`}
+            >
+              {renderIngredients}
+            </ul>
+          ) : (
+            <h2 className={`${stylesConsctructor.choseIngredient}`}>
+              Выберите{" "}
+              <span
+                className={`${stylesConsctructor.choseIngredientFlickerTwo}`}
+              >
+                Начинку
+              </span>
+            </h2>
+          )}
+
+          {selectedBun ? (
+            <li
+              className={`${stylesConsctructor.type} ${stylesConsctructor.bun}`}
+            >
+              <ConstructorElement
+                type="bottom"
+                isLocked={true}
+                text={`${selectedBun.info.name} (низ)`}
+                price={selectedBun.info.price}
+                thumbnail={selectedBun.info.image_mobile}
+              />
+            </li>
+          ) : null}
         </ul>
       </div>
       <div className={`${stylesConsctructor.total}`}>
         <div className={`${stylesConsctructor.price}`}>
-          <p className="text text_type_digits-medium">{finalSum}</p>
+          <p className="text text_type_digits-medium">{counterPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button
           type="primary"
           size="large"
           htmlType="button"
-          onClick={handleClickOrder}
+          disabled={!selectedIngredient.length || !selectedBun}
+          onClick={makeSomeOrder}
         >
           Оформить заказ
         </Button>
       </div>
-      {openModal && (
-        <Modal setOpenModal={setOpenModal}>
-          <OrderDetails orderNum={orderNum.order.number} />
+      {isOrderDetailsOpened && (
+        <Modal closePopup={closeOrderDetails}>
+          <OrderDetails />
         </Modal>
       )}
     </section>

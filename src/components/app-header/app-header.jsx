@@ -1,5 +1,5 @@
-import React from "react";
 import stylesAppHeader from "./app-header.module.css";
+
 import {
   Logo,
   BurgerIcon,
@@ -14,13 +14,13 @@ export function AppHeader() {
         <nav className={`${stylesAppHeader.navigation}`}>
           <ul className={`${stylesAppHeader.menu}`}>
             <li>
-              <a className={`${stylesAppHeader.link}`}>
+              <a className={`${stylesAppHeader.link}`} href="##">
                 <BurgerIcon type="primary" />
                 <p className={`text text_type_main-default`}>Конструктор</p>
               </a>
             </li>
             <li>
-              <a className={`${stylesAppHeader.link}`}>
+              <a className={`${stylesAppHeader.link}`} href="##">
                 <ListIcon type="secondary" />
                 <p
                   className={`text text_type_main-default text_color_inactive`}
@@ -33,7 +33,7 @@ export function AppHeader() {
         </nav>
         <Logo />
         <div className={`${stylesAppHeader.login}`}>
-          <a className={`${stylesAppHeader.link}`}>
+          <a className={`${stylesAppHeader.link}`} href="##">
             <ProfileIcon type="secondary" />
             <p className={`text text_type_main-default text_color_inactive`}>
               Личный кабинет
