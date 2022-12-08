@@ -87,7 +87,7 @@ export function BurgerConstructor() {
   return (
     <section
       className={`${stylesConsctructor.section} ${
-        isHover ? stylesConsctructor.dropHover : null
+        isHover ? stylesConsctructor.dropHover : ""
       }`}
       ref={dropTarget}
     >

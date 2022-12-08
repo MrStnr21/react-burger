@@ -20,13 +20,13 @@ export const resetConstructor = () => ({
 });
 
 export const changeIngredient = (ingredients, dragIndex, hoverIndex) => {
-  const newArrIngredietns = ingredients.slice();
-  const dragIngredient = newArrIngredietns[dragIndex];
-  newArrIngredietns.splice(dragIndex, 1);
-  newArrIngredietns.splice(hoverIndex, 0, dragIngredient);
+  const newArrIngredients = ingredients.slice();
+  const dragIngredient = newArrIngredients[dragIndex];
+  newArrIngredients.splice(dragIndex, 1);
+  newArrIngredients.splice(hoverIndex, 0, dragIngredient);
 
   return {
     type: CHANGE_INGREDIENT,
-    payload: [...newArrIngredietns],
+    payload: [...newArrIngredients],
   };
 };
