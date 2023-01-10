@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import stylesApp from "./app.module.css";
+import stylesConstructor from "./constructor.module.css";
 
-import { AppHeader } from "../app-header/app-header";
-import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
-import { BurgerConstructor } from "../burger-constructor/burger-constructor";
+import { AppHeader } from "../../components/app-header/app-header";
+import { BurgerIngredients } from "../../components/burger-ingredients/burger-ingredients";
+import { BurgerConstructor } from "../../components/burger-constructor/burger-constructor";
 
 import { getIngredients } from "../../services/actions/ingredients";
 
-export function App() {
+export function ConstructorPage() {
   const dispatch = useDispatch();
   const { ingredientsRequest, ingredientsFailed } = useSelector(
     (store) => store.ingredients
@@ -22,10 +22,10 @@ export function App() {
   }, [dispatch]);
 
   return (
-    <div className={`${stylesApp.App}`}>
+    <div className={`${stylesConstructor.App}`}>
       <AppHeader />
       {!ingredientsRequest && !ingredientsFailed && (
-        <main className={`${stylesApp.main}`}>
+        <main className={`${stylesConstructor.main}`}>
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
             <BurgerConstructor />
