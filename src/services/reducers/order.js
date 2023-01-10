@@ -12,7 +12,7 @@ const initialState = {
   isOrderDetailsOpened: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case MAKE_ORDER_REQUEST:
       return {
@@ -44,3 +44,5 @@ export const orderReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export { orderReducer };

@@ -8,7 +8,7 @@ import { TabsIngredients } from "../utils/data";
 
 import PropTypes from "prop-types";
 
-export function TabBurgerIngredients(props) {
+function TabBurgerIngredients(props) {
   const [current, setCurrent] = useState();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function TabBurgerIngredients(props) {
         onClick={onClickHandlerTab}
       >
         Соусы
-      </Tab>  
+      </Tab>
       <Tab
         value="main"
         active={current === TabsIngredients.MAIN || props.currentIndexTab === 2}
@@ -57,3 +57,5 @@ TabBurgerIngredients.propTypes = {
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]).isRequired,
 };
+
+export { TabBurgerIngredients };

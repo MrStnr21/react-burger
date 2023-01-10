@@ -12,7 +12,7 @@ const initialState = {
   selectedBun: null,
 };
 
-export const burgerConstructorReducer = (state = initialState, action) => {
+const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT:
       return action.payload.ingredient.type !== TabsIngredients.BUN
@@ -52,3 +52,5 @@ export const burgerConstructorReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export { burgerConstructorReducer };

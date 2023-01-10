@@ -4,7 +4,7 @@ import stylesOrderDetails from "./order-details.module.css";
 
 import logoDone from "../../images/done.svg";
 
-export function OrderDetails() {
+function OrderDetails() {
   const { orderNumber } = useSelector((store) => store.order);
 
   return (
@@ -33,3 +33,5 @@ export function OrderDetails() {
     </>
   );
 }
+
+export { OrderDetails };

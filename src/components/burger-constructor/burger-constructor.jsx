@@ -20,7 +20,7 @@ import {
   resetConstructor,
 } from "../../services/actions/burger-constructor";
 
-export function BurgerConstructor() {
+function BurgerConstructor() {
   const dispatch = useDispatch();
   const { selectedIngredient, selectedBun } = useSelector(
     (store) => store.burgerConstructor
@@ -171,3 +171,5 @@ export function BurgerConstructor() {
     </section>
   );
 }
+
+export { BurgerConstructor };

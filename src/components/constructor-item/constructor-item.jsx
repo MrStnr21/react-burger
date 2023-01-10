@@ -14,7 +14,7 @@ import { changeIngredient } from "../../services/actions/burger-constructor";
 
 import PropTypes from "prop-types";
 
-export function ConstructorItem({ ingredient, index, handleRemoveIngredient }) {
+function ConstructorItem({ ingredient, index, handleRemoveIngredient }) {
   const dispatch = useDispatch();
   const { selectedIngredient } = useSelector(
     (store) => store.burgerConstructor
@@ -103,3 +103,5 @@ ConstructorItem.propTypes = {
   index: PropTypes.number.isRequired,
   handleRemoveIngredient: PropTypes.func.isRequired,
 };
+
+export { ConstructorItem };

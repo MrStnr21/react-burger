@@ -12,7 +12,7 @@ import { TabsIngredients } from "../utils/data";
 
 import { openInfo, closeInfo } from "../../services/actions/ingredient-details";
 
-export function BurgerIngredients() {
+function BurgerIngredients() {
   const dispatch = useDispatch();
   const { ingredients } = useSelector((store) => store.ingredients);
   const { showedIngredient } = useSelector((store) => store.ingredientDetails);
@@ -152,3 +152,5 @@ export function BurgerIngredients() {
     </section>
   );
 }
+
+export { BurgerIngredients };

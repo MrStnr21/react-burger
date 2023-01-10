@@ -8,7 +8,7 @@ import { ModalOverlay } from "../modal-overlay/modal-overlay";
 
 import PropTypes from "prop-types";
 
-export function Modal({ closePopup, children }) {
+function Modal({ closePopup, children }) {
   useEffect(() => {
     const closelByEscape = (e) => {
       if (e.key === "Escape") {
@@ -38,3 +38,5 @@ Modal.propTypes = {
   children: PropTypes.element.isRequired,
   closePopup: PropTypes.func.isRequired,
 };
+
+export { Modal };

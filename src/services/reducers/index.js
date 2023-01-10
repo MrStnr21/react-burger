@@ -4,9 +4,11 @@ import { ingredientsReducer } from "./ingredients";
 import { ingredientDetailsReducer } from "./ingredient-details";
 import { orderReducer } from "./order";
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   burgerConstructor: burgerConstructorReducer,
   ingredientDetails: ingredientDetailsReducer,
   ingredients: ingredientsReducer,
   order: orderReducer,
 });
+
+export { rootReducer };

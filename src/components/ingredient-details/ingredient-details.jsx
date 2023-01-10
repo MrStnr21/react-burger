@@ -2,7 +2,7 @@ import StylesIngredientDetails from "./ingredient-details.module.css";
 
 import { BurgerPropTypes } from "../utils/PropTypes";
 
-export function IngredientDetails({ ingredient }) {
+function IngredientDetails({ ingredient }) {
   return (
     <>
       <p
@@ -61,3 +61,5 @@ export function IngredientDetails({ ingredient }) {
 IngredientDetails.propTypes = {
   ingredient: BurgerPropTypes.isRequired,
 };
+
+export { IngredientDetails };

@@ -13,7 +13,7 @@ import {
 
 import PropTypes from "prop-types";
 
-export function IngredientItem({ ingredient, onIngredientClick }) {
+function IngredientItem({ ingredient, onIngredientClick }) {
   const { selectedIngredient, selectedBun } = useSelector(
     (store) => store.burgerConstructor
   );
@@ -68,3 +68,5 @@ IngredientItem.propTypes = {
   ingredient: PropTypes.object.isRequired,
   onIngredientClick: PropTypes.func.isRequired,
 };
+
+export { IngredientItem };

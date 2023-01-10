@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const BurgerPropTypes = PropTypes.shape({
+const BurgerPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
@@ -13,3 +13,5 @@ export const BurgerPropTypes = PropTypes.shape({
   image_large: PropTypes.string.isRequired,
   image_mobile: PropTypes.string.isRequired,
 });
+
+export { BurgerPropTypes };

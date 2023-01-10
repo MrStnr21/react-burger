@@ -11,7 +11,7 @@ import { BurgerConstructor } from "../../components/burger-constructor/burger-co
 
 import { getIngredients } from "../../services/actions/ingredients";
 
-export function ConstructorPage() {
+function ConstructorPage() {
   const dispatch = useDispatch();
   const { ingredientsRequest, ingredientsFailed } = useSelector(
     (store) => store.ingredients
@@ -35,3 +35,5 @@ export function ConstructorPage() {
     </div>
   );
 }
+
+export { ConstructorPage };
